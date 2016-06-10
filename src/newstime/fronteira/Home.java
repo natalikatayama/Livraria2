@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Forms;
+package newstime.fronteira;
 
 /**
  *
@@ -32,12 +32,11 @@ public class Home extends javax.swing.JFrame {
         atendimento_home = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         button_ok_home = new javax.swing.JButton();
-        combo_filtro_home = new javax.swing.JComboBox<>();
+        combo_filtro_home = new javax.swing.JComboBox<String>();
         login_home = new javax.swing.JLabel();
         promocoes_home = new javax.swing.JLabel();
         mais_vendidos_home = new javax.swing.JLabel();
         DesktopPrincipal = new javax.swing.JDesktopPane();
-        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuLivros = new javax.swing.JMenu();
         MenuLivrosLancamento = new javax.swing.JMenuItem();
@@ -95,7 +94,7 @@ public class Home extends javax.swing.JFrame {
         button_ok_home.setText("OK");
 
         combo_filtro_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        combo_filtro_home.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtro", "Título", "Autor", "Editora", "Categoria", "ISBN" }));
+        combo_filtro_home.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filtro", "Título", "Autor", "Editora", "Categoria", "ISBN" }));
         combo_filtro_home.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 combo_filtro_homeFocusGained(evt);
@@ -131,8 +130,6 @@ public class Home extends javax.swing.JFrame {
             DesktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 432, Short.MAX_VALUE)
         );
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Forms/logo.PNG"))); // NOI18N
 
         MenuLivros.setText("Livros");
         MenuLivros.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +278,6 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DesktopPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -302,32 +298,27 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(button_ok_home, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(login_home)))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(nossas_lojas_home)
-                                .addComponent(televendas)
-                                .addComponent(atendimento_home))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(mais_vendidos_home)
-                                .addComponent(promocoes_home)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button_ok_home)
-                            .addComponent(combo_filtro_home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(login_home))))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nossas_lojas_home)
+                        .addComponent(televendas)
+                        .addComponent(atendimento_home))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(mais_vendidos_home)
+                        .addComponent(promocoes_home)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_ok_home)
+                    .addComponent(combo_filtro_home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(login_home))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(DesktopPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(253, 253, 253))
         );
@@ -479,8 +470,7 @@ public class Home extends javax.swing.JFrame {
     public javax.swing.JMenuItem MenuLivrosPreVenda;
     public javax.swing.JLabel atendimento_home;
     public javax.swing.JButton button_ok_home;
-    private javax.swing.JComboBox<String> combo_filtro_home;
-    public javax.swing.JLabel jLabel5;
+    public javax.swing.JComboBox<String> combo_filtro_home;
     public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JTextField jTextField1;
     public javax.swing.JLabel login_home;
