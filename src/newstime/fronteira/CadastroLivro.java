@@ -7,12 +7,12 @@ package newstime.fronteira;
 
 /**
  *
- * @author Nátali-Letícia
+ * @author Gabriel
  */
-public class CadastroLivro extends javax.swing.JFrame {
+public class CadastroLivro extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form formm
+     * Creates new form CadastroLivros
      */
     public CadastroLivro() {
         initComponents();
@@ -71,7 +71,7 @@ public class CadastroLivro extends javax.swing.JFrame {
         button_excluir = new javax.swing.JButton();
         pais_livro = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Cadastro de Livros");
@@ -322,7 +322,7 @@ public class CadastroLivro extends javax.swing.JFrame {
                     .addComponent(button_excluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -333,13 +333,13 @@ public class CadastroLivro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -354,85 +354,50 @@ public class CadastroLivro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_qtd_txtActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroLivro().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JFormattedTextField ISBN_livro;
-    public javax.swing.JTextField ano_txt;
-    public javax.swing.JButton button_alterar;
-    public javax.swing.JButton button_cadastro;
-    public javax.swing.JButton button_excluir;
-    public javax.swing.JButton button_pesquisar;
+    private javax.swing.JFormattedTextField ISBN_livro;
+    private javax.swing.JTextField ano_txt;
+    private javax.swing.JButton button_alterar;
+    private javax.swing.JButton button_cadastro;
+    private javax.swing.JButton button_excluir;
+    private javax.swing.JButton button_pesquisar;
     private javax.swing.JComboBox<String> categoria_livro;
-    public javax.swing.JTextField editora_txt;
-    public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel10;
-    public javax.swing.JLabel jLabel11;
-    public javax.swing.JLabel jLabel12;
-    public javax.swing.JLabel jLabel13;
-    public javax.swing.JLabel jLabel14;
-    public javax.swing.JLabel jLabel15;
-    public javax.swing.JLabel jLabel16;
-    public javax.swing.JLabel jLabel17;
-    public javax.swing.JLabel jLabel19;
-    public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel21;
-    public javax.swing.JLabel jLabel3;
-    public javax.swing.JLabel jLabel4;
-    public javax.swing.JLabel jLabel5;
-    public javax.swing.JLabel jLabel6;
-    public javax.swing.JLabel jLabel7;
-    public javax.swing.JLabel jLabel8;
-    public javax.swing.JLabel jLabel9;
-    public javax.swing.JPanel jPanel1;
-    public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField editora_txt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<String> livro_digital_select;
-    public javax.swing.JTextField margem_lucro;
-    public javax.swing.JTextField nome_autor_txt;
+    private javax.swing.JTextField margem_lucro;
+    private javax.swing.JTextField nome_autor_txt;
     private javax.swing.JComboBox<String> oferta_livro_select;
     private javax.swing.JComboBox<String> pais_livro;
-    public javax.swing.JTextField preco_livro;
-    public javax.swing.JTextField preco_oferta;
-    public javax.swing.JTextField preco_revenda;
-    public javax.swing.JTextField qtd_txt;
-    public javax.swing.JTextArea resumo_txt;
-    public javax.swing.JTextArea sumario_txt;
-    public javax.swing.JTextField titulo_txt;
+    private javax.swing.JTextField preco_livro;
+    private javax.swing.JTextField preco_oferta;
+    private javax.swing.JTextField preco_revenda;
+    private javax.swing.JTextField qtd_txt;
+    private javax.swing.JTextArea resumo_txt;
+    private javax.swing.JTextArea sumario_txt;
+    private javax.swing.JTextField titulo_txt;
     // End of variables declaration//GEN-END:variables
 }
