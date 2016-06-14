@@ -1,9 +1,7 @@
-//TODO: Implementar gravação do carrinho
+//TODO: Testar
 package newstime.controle;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import newstime.DAO.BancoDados;
 import newstime.DAO.ItemCarrinhoDAO;
@@ -56,13 +54,19 @@ public class ControleCarrinho {
         //Prossegue o processo normal
         BancoDados bd = new BancoDados();
         LivroDAO lDao = new LivroDAO(bd);
-        
+        ItemCarrinhoDAO icDao = new ItemCarrinhoDAO(bd);
         try {
-            ItemPedido itemP = new ItemPedido();
+            //Busca livro
             Livro livro = new Livro();
             livro.setIsbn(isbn);
             livro = lDao.buscar(livro);
+            //Cria item de carrinho
+            ItemPedido itemP = new ItemPedido();
             itemP.definirItemPedido(livro, Integer.parseInt(quantidade));
+            
+            //Adiciona no banco
+            icDao.inserir(itemP);
+            //Adiciona no programa
             Carrinho.adicionarItem(itemP);
             JOptionPane.showMessageDialog(null,"Item adicionado com sucesso.");
         } catch (NegocioException | BancoException ex) {
@@ -75,12 +79,15 @@ public class ControleCarrinho {
      * @param quantidade
      */
     public void alterarItem(String isbn, String quantidade) {
+        ItemCarrinhoDAO icDao = new ItemCarrinhoDAO(new BancoDados());
+        
         //Verifica se o cliente existe e para, caso não haja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null, "Faça o login ou cadastre-se antes.");
             return;
         }
         
+        //Busca
         ItemPedido escolhido = null;
         for(ItemPedido ix : Carrinho.getItens()) {
             if(ix.getLivro().getIsbn().equals(isbn)) {
@@ -88,12 +95,16 @@ public class ControleCarrinho {
                 break;
             }
         }
+        //Se encontrado
         if(escolhido != null) {
             try {
                 escolhido.definirItemPedido(escolhido.getLivro(), Integer.parseInt(quantidade));
+                //Altera item no banco
+                icDao.alterar(escolhido);
+                //Altera item no programa
                 Carrinho.alterarItem(escolhido);
                 JOptionPane.showMessageDialog(null,"Item alterado com sucesso.");
-            } catch (NegocioException ex) {
+            } catch (NegocioException | BancoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
@@ -103,13 +114,15 @@ public class ControleCarrinho {
      * @param isbn 
      */
     public void retirarItem(String isbn) {
+        ItemCarrinhoDAO icDao = new ItemCarrinhoDAO(new BancoDados());
+        
         //Verifica se o cliente existe e para, caso não haja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null, "Faça o login ou cadastre-se antes.");
             return;
         }
         
-        //Retira o item
+        //Busca
         ItemPedido escolhido = null;
         for(ItemPedido ix : Carrinho.getItens()) {
             if(ix.getLivro().getIsbn().equals(isbn)) {
@@ -117,9 +130,17 @@ public class ControleCarrinho {
                 break;
             }
         }
+        //Se encontrado
         if(escolhido != null) {
-            Carrinho.retirarItem(escolhido);
-            JOptionPane.showMessageDialog(null,"Item removido com sucesso.");
+            try {
+                //Retira o item no banco
+                icDao.excluir(escolhido);
+                //Retira o item no programa
+                Carrinho.retirarItem(escolhido);
+                JOptionPane.showMessageDialog(null,"Item removido com sucesso.");
+            } catch (BancoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }
     /**
@@ -132,12 +153,12 @@ public class ControleCarrinho {
             return;
         }
         
-        //Limpa carrinho no programa
-        Carrinho.limparCarrinho();
-        //Limpa no banco
-        ItemCarrinhoDAO icDao = new ItemCarrinhoDAO(new BancoDados());
         try {
+            //Limpa carrinho no banco
+            ItemCarrinhoDAO icDao = new ItemCarrinhoDAO(new BancoDados());
             icDao.excluirCliente(Conta.getCliente());
+            //Limpa carrinho no programa
+            Carrinho.limparCarrinho();
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }

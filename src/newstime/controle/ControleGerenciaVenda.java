@@ -56,12 +56,16 @@ public class ControleGerenciaVenda {
             //Lista as vendas
             vendas = (ArrayList<Venda>) vDao.listar();
             //Define os subjacentes
-            Endereco edx = new Endereco();
-            Pagamento pgx = new Pagamento();
-            Entrega etx = new Entrega();
-            Pedido px = new Pedido();
-            Livro lx = new Livro();
+            Endereco edx;
+            Pagamento pgx;
+            Entrega etx;
+            Pedido px;
+            Livro lx;
             for(int i = 0;i < vendas.size();i++) {
+                edx = new Endereco();
+                pgx = new Pagamento();
+                etx = new Entrega();
+                px = new Pedido();
                 //Endereço
                 edx.setID(vendas.get(i).getID_ENDERECO());
                 edx = edDao.buscarId(edx);
@@ -82,6 +86,7 @@ public class ControleGerenciaVenda {
                 vendas.get(i).getPedido().setItensPedido((ArrayList<ItemPedido>) iDao.listarPedido(px));
                 //Livros de cada item do pedido
                 for(int j = 0;j < vendas.get(i).getPedido().getItensPedido().size();j++) {
+                    lx = new Livro();
                     lx.setID(vendas.get(i).getPedido().getItensPedido().get(j).getID_LIVRO());
                     lx = lDao.buscarId(lx);
                     vendas.get(i).getPedido().getItensPedido().get(j).setLivro(lx);
