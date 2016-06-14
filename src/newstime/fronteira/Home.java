@@ -5,14 +5,19 @@
  */
 package newstime.fronteira;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
+
 /**
  *
- * @author Nátali-Letícia
+ * @author Gabriel
  */
 public class Home extends javax.swing.JFrame {
 
     /**
-     * Creates new form Home
+     * Creates new form NovoJFrame
      */
     public Home() {
         initComponents();
@@ -27,16 +32,23 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nossas_lojas_home = new javax.swing.JLabel();
-        televendas = new javax.swing.JLabel();
-        atendimento_home = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        button_ok_home = new javax.swing.JButton();
-        combo_filtro_home = new javax.swing.JComboBox<String>();
-        login_home = new javax.swing.JLabel();
-        promocoes_home = new javax.swing.JLabel();
-        mais_vendidos_home = new javax.swing.JLabel();
-        DesktopPrincipal = new javax.swing.JDesktopPane();
+        jPanel5 = new javax.swing.JPanel();
+        nossas_lojas_home4 = new javax.swing.JLabel();
+        combo_filtro_home4 = new javax.swing.JComboBox<>();
+        jTextField5 = new javax.swing.JTextField();
+        televendas4 = new javax.swing.JLabel();
+        atendimento_home4 = new javax.swing.JLabel();
+        promocoes_home4 = new javax.swing.JLabel();
+        mais_vendidos_home4 = new javax.swing.JLabel();
+        login_home4 = new javax.swing.JLabel();
+        button_ok_home4 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        DesktopHome = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuLivros = new javax.swing.JMenu();
         MenuLivrosLancamento = new javax.swing.JMenuItem();
@@ -46,89 +58,193 @@ public class Home extends javax.swing.JFrame {
         MenuLivrosDigitaisLancamentos = new javax.swing.JMenuItem();
         MenuLivrosDigitaisPreVenda = new javax.swing.JMenuItem();
         MenuLivrosDigitaisMaisVendidos = new javax.swing.JMenuItem();
-        MenuCategoria = new javax.swing.JMenu();
-        MenuCategoriaAdministracao = new javax.swing.JMenuItem();
-        MenuCategoriaAgropecuaria = new javax.swing.JMenuItem();
-        MenuCategoriaAudiobook = new javax.swing.JMenuItem();
-        MenuCategoriaAutoajuda = new javax.swing.JMenuItem();
-        MenuCategoriaBibliograficos = new javax.swing.JMenuItem();
-        MenuCategoriaCientífico = new javax.swing.JMenuItem();
-        MenuCategoriaContos = new javax.swing.JMenuItem();
-        MenuCategoriaDidatico = new javax.swing.JMenuItem();
-        MenuCategoriaFiccao = new javax.swing.JMenuItem();
-        MenuCategoriaHorror = new javax.swing.JMenuItem();
-        MenuCategoriaInfantojuvenil = new javax.swing.JMenuItem();
-        MenuCategoriaInformatica = new javax.swing.JMenuItem();
-        MenuCategoriaLiteraturaBR = new javax.swing.JMenuItem();
-        MenuCategoriaLiteraturaEstrangeira = new javax.swing.JMenuItem();
-        MenuCategoriaMatematica = new javax.swing.JMenuItem();
-        MenuCategoriaMedicina = new javax.swing.JMenuItem();
-        MenuCategoriaRomance = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
 
-        nossas_lojas_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        nossas_lojas_home.setText("Nossas Lojas");
-        nossas_lojas_home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        nossas_lojas_home.addMouseListener(new java.awt.event.MouseAdapter() {
+        nossas_lojas_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nossas_lojas_home4.setText("Nossas Lojas");
+        nossas_lojas_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nossas_lojas_home4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nossas_lojas_homeMouseClicked(evt);
+                nossas_lojas_home4nossas_lojas_homeMouseClicked(evt);
             }
         });
 
-        televendas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        televendas.setText("Televendas (11)2332-3454");
-        televendas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        atendimento_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        atendimento_home.setText("Atendimento");
-        atendimento_home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        atendimento_home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                atendimento_homeMouseClicked(evt);
-            }
-        });
-
-        button_ok_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        button_ok_home.setText("OK");
-
-        combo_filtro_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        combo_filtro_home.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filtro", "Título", "Autor", "Editora", "Categoria", "ISBN" }));
-        combo_filtro_home.addFocusListener(new java.awt.event.FocusAdapter() {
+        combo_filtro_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        combo_filtro_home4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtro", "Título", "Autor", "Editora", "Categoria", "ISBN" }));
+        combo_filtro_home4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                combo_filtro_homeFocusGained(evt);
+                combo_filtro_home4combo_filtro_homeFocusGained(evt);
             }
         });
 
-        login_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        login_home.setText("Entre ou cadastre-se");
-        login_home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        login_home.addMouseListener(new java.awt.event.MouseAdapter() {
+        televendas4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        televendas4.setText("Televendas (11)2332-3454");
+        televendas4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        atendimento_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        atendimento_home4.setText("Atendimento");
+        atendimento_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        atendimento_home4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                login_homeMouseClicked(evt);
+                atendimento_home4atendimento_homeMouseClicked(evt);
             }
         });
 
-        promocoes_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        promocoes_home.setText("Promoções do dia");
-        promocoes_home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        promocoes_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        promocoes_home4.setText("Promoções do dia");
+        promocoes_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        promocoes_home4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                promocoes_home4MouseClicked(evt);
+            }
+        });
 
-        mais_vendidos_home.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        mais_vendidos_home.setText("Mais vendidos");
-        mais_vendidos_home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mais_vendidos_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mais_vendidos_home4.setText("Mais vendidos");
+        mais_vendidos_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mais_vendidos_home4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mais_vendidos_home4MouseClicked(evt);
+            }
+        });
 
-        DesktopPrincipal.setDesktopManager(null);
+        login_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        login_home4.setText("Entre ou cadastre-se");
+        login_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        login_home4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                login_home4login_homeMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout DesktopPrincipalLayout = new javax.swing.GroupLayout(DesktopPrincipal);
-        DesktopPrincipal.setLayout(DesktopPrincipalLayout);
-        DesktopPrincipalLayout.setHorizontalGroup(
-            DesktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 856, Short.MAX_VALUE)
+        button_ok_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        button_ok_home4.setText("OK");
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newstime/fronteira/logo.PNG"))); // NOI18N
+        jLabel21.setText("jLabel1");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setText("Sair");
+        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setText("Meu Carrinho");
+        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23jLabel6MouseClicked(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setText("Meus Pedidos");
+        jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel24MouseClicked(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setText("Pesquisar");
+
+        jComboBox5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria", "Administração", "Agropecuária", "Audiobook", "Autoajuda", "Bibliográficos", "Científico", "Contos", "Didáticos", "Ficção", "Horror", "Infantojuvenil", "Informática", "Literatura Brasileira", "Literatura Estrangeira", "Matemática", "Medicina", "Romance" }));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DesktopHomeLayout = new javax.swing.GroupLayout(DesktopHome);
+        DesktopHome.setLayout(DesktopHomeLayout);
+        DesktopHomeLayout.setHorizontalGroup(
+            DesktopHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 945, Short.MAX_VALUE)
         );
-        DesktopPrincipalLayout.setVerticalGroup(
-            DesktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+        DesktopHomeLayout.setVerticalGroup(
+            DesktopHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 439, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DesktopHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel25)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addComponent(combo_filtro_home4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel24)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel23)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(mais_vendidos_home4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(promocoes_home4))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(nossas_lojas_home4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(televendas4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(atendimento_home4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(login_home4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel22))))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(419, 419, 419)
+                                .addComponent(button_ok_home4)))))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nossas_lojas_home4)
+                            .addComponent(televendas4)
+                            .addComponent(atendimento_home4)
+                            .addComponent(login_home4)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23)
+                            .addComponent(mais_vendidos_home4)
+                            .addComponent(promocoes_home4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel25)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button_ok_home4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_filtro_home4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel21))
+                .addGap(29, 29, 29)
+                .addComponent(DesktopHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         MenuLivros.setText("Livros");
@@ -192,81 +308,6 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuLivrosDigitais);
 
-        MenuCategoria.setText("Categoria");
-
-        MenuCategoriaAdministracao.setText("Administração");
-        MenuCategoria.add(MenuCategoriaAdministracao);
-
-        MenuCategoriaAgropecuaria.setText("Agropecuária");
-        MenuCategoriaAgropecuaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCategoriaAgropecuariaActionPerformed(evt);
-            }
-        });
-        MenuCategoria.add(MenuCategoriaAgropecuaria);
-
-        MenuCategoriaAudiobook.setText("Audiobook");
-        MenuCategoriaAudiobook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCategoriaAudiobookActionPerformed(evt);
-            }
-        });
-        MenuCategoria.add(MenuCategoriaAudiobook);
-
-        MenuCategoriaAutoajuda.setText("Autoajuda");
-        MenuCategoriaAutoajuda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCategoriaAutoajudaActionPerformed(evt);
-            }
-        });
-        MenuCategoria.add(MenuCategoriaAutoajuda);
-
-        MenuCategoriaBibliograficos.setText("Bibliográficos");
-        MenuCategoria.add(MenuCategoriaBibliograficos);
-
-        MenuCategoriaCientífico.setText("Científico");
-        MenuCategoria.add(MenuCategoriaCientífico);
-
-        MenuCategoriaContos.setText("Contos");
-        MenuCategoria.add(MenuCategoriaContos);
-
-        MenuCategoriaDidatico.setText("Didáticos");
-        MenuCategoria.add(MenuCategoriaDidatico);
-
-        MenuCategoriaFiccao.setText("Ficção");
-        MenuCategoria.add(MenuCategoriaFiccao);
-
-        MenuCategoriaHorror.setText("Horror");
-        MenuCategoria.add(MenuCategoriaHorror);
-
-        MenuCategoriaInfantojuvenil.setText("Infantojuvenil");
-        MenuCategoriaInfantojuvenil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCategoriaInfantojuvenilActionPerformed(evt);
-            }
-        });
-        MenuCategoria.add(MenuCategoriaInfantojuvenil);
-
-        MenuCategoriaInformatica.setText("Informática");
-        MenuCategoria.add(MenuCategoriaInformatica);
-
-        MenuCategoriaLiteraturaBR.setText("Literatura Brasileira");
-        MenuCategoria.add(MenuCategoriaLiteraturaBR);
-
-        MenuCategoriaLiteraturaEstrangeira.setText("Literatura Estrangeira");
-        MenuCategoria.add(MenuCategoriaLiteraturaEstrangeira);
-
-        MenuCategoriaMatematica.setText("Matemática");
-        MenuCategoria.add(MenuCategoriaMatematica);
-
-        MenuCategoriaMedicina.setText("Medicina");
-        MenuCategoria.add(MenuCategoriaMedicina);
-
-        MenuCategoriaRomance.setText("Romance");
-        MenuCategoria.add(MenuCategoriaRomance);
-
-        jMenuBar1.add(MenuCategoria);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,136 +315,126 @@ public class Home extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DesktopPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nossas_lojas_home)
-                                .addGap(18, 18, 18)
-                                .addComponent(televendas)
-                                .addGap(30, 30, 30)
-                                .addComponent(atendimento_home)
-                                .addGap(24, 24, 24)
-                                .addComponent(promocoes_home)
-                                .addGap(18, 18, 18)
-                                .addComponent(mais_vendidos_home))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(combo_filtro_home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(button_ok_home, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(login_home)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nossas_lojas_home)
-                        .addComponent(televendas)
-                        .addComponent(atendimento_home))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(mais_vendidos_home)
-                        .addComponent(promocoes_home)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_ok_home)
-                    .addComponent(combo_filtro_home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_home))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(DesktopPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(253, 253, 253))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        setBounds(0, 0, 919, 703);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void setMaximized(JInternalFrame form){
+        try {
+            form.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void MenuLivrosLancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosLancamentoActionPerformed
+        FormInternoLivro obj = new FormInternoLivro();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
+    }//GEN-LAST:event_MenuLivrosLancamentoActionPerformed
 
-    private void nossas_lojas_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nossas_lojas_homeMouseClicked
-           Lojas LojasForm = new Lojas();
-                LojasForm.setLocationRelativeTo(null);
-                LojasForm.show();
-                    
-    }//GEN-LAST:event_nossas_lojas_homeMouseClicked
+    private void MenuLivrosPreVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosPreVendaActionPerformed
+        FormInternoLivro2 obj = new FormInternoLivro2();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
+    }//GEN-LAST:event_MenuLivrosPreVendaActionPerformed
 
-    private void login_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_homeMouseClicked
-        Login loginForm = new Login();
-            loginForm.setLocationRelativeTo(null);
-            loginForm.show();
-    }//GEN-LAST:event_login_homeMouseClicked
-
-    private void combo_filtro_homeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_combo_filtro_homeFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combo_filtro_homeFocusGained
-
-    private void atendimento_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atendimento_homeMouseClicked
-        Atendimento atendForm = new Atendimento();
-            atendForm.setLocationRelativeTo(null);
-            atendForm.show();        
-    }//GEN-LAST:event_atendimento_homeMouseClicked
-
-    private void MenuCategoriaAutoajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCategoriaAutoajudaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuCategoriaAutoajudaActionPerformed
-
-    private void MenuCategoriaInfantojuvenilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCategoriaInfantojuvenilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuCategoriaInfantojuvenilActionPerformed
+    private void MenuLivrosMaisVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosMaisVendidosActionPerformed
+        FormInternoLivro3 obj = new FormInternoLivro3();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
+    }//GEN-LAST:event_MenuLivrosMaisVendidosActionPerformed
 
     private void MenuLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosActionPerformed
 
     }//GEN-LAST:event_MenuLivrosActionPerformed
 
-    private void MenuLivrosLancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosLancamentoActionPerformed
-        FormInternoLivro obj = new FormInternoLivro();
-        DesktopPrincipal.add (obj);
-        obj.setVisible(true);
-    }//GEN-LAST:event_MenuLivrosLancamentoActionPerformed
-
-    private void MenuLivrosPreVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosPreVendaActionPerformed
-        FormInternoLivro2 obj = new FormInternoLivro2();
-        DesktopPrincipal.add (obj);
-        obj.setVisible(true);
-    }//GEN-LAST:event_MenuLivrosPreVendaActionPerformed
-
-    private void MenuLivrosMaisVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosMaisVendidosActionPerformed
-        FormInternoLivro3 obj = new FormInternoLivro3();
-        DesktopPrincipal.add (obj);
-        obj.setVisible(true);
-    }//GEN-LAST:event_MenuLivrosMaisVendidosActionPerformed
-
     private void MenuLivrosDigitaisLancamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosDigitaisLancamentosActionPerformed
         FormInternoDigital obj = new FormInternoDigital();
-        DesktopPrincipal.add (obj);
+        DesktopHome.add (obj);
         obj.setVisible(true);
+        setMaximized(obj);
     }//GEN-LAST:event_MenuLivrosDigitaisLancamentosActionPerformed
 
     private void MenuLivrosDigitaisPreVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosDigitaisPreVendaActionPerformed
         FormInternoDigital2 obj = new FormInternoDigital2();
-        DesktopPrincipal.add (obj);
+        DesktopHome.add (obj);
         obj.setVisible(true);
+        setMaximized(obj);
     }//GEN-LAST:event_MenuLivrosDigitaisPreVendaActionPerformed
 
     private void MenuLivrosDigitaisMaisVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLivrosDigitaisMaisVendidosActionPerformed
         FormInternoDigital3 obj = new FormInternoDigital3();
-        DesktopPrincipal.add (obj);
+        DesktopHome.add (obj);
         obj.setVisible(true);
+        setMaximized(obj);
     }//GEN-LAST:event_MenuLivrosDigitaisMaisVendidosActionPerformed
 
-    private void MenuCategoriaAgropecuariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCategoriaAgropecuariaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuCategoriaAgropecuariaActionPerformed
+    private void nossas_lojas_home4nossas_lojas_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nossas_lojas_home4nossas_lojas_homeMouseClicked
+        Lojas lojasForm = new Lojas();
+        lojasForm.setVisible(true);
+        lojasForm.setLocationRelativeTo(null);
+    }//GEN-LAST:event_nossas_lojas_home4nossas_lojas_homeMouseClicked
 
-    private void MenuCategoriaAudiobookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCategoriaAudiobookActionPerformed
+    private void combo_filtro_home4combo_filtro_homeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_combo_filtro_home4combo_filtro_homeFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_MenuCategoriaAudiobookActionPerformed
+    }//GEN-LAST:event_combo_filtro_home4combo_filtro_homeFocusGained
+
+    private void atendimento_home4atendimento_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atendimento_home4atendimento_homeMouseClicked
+        Atendimento atendimentoForm = new Atendimento();
+        atendimentoForm.setVisible(true);
+        atendimentoForm.setLocationRelativeTo(null);
+    }//GEN-LAST:event_atendimento_home4atendimento_homeMouseClicked
+
+    private void login_home4login_homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_home4login_homeMouseClicked
+        Login loginForm = new Login();
+        loginForm.setVisible(true);
+        loginForm.setLocationRelativeTo(null);
+    }//GEN-LAST:event_login_home4login_homeMouseClicked
+
+    private void jLabel23jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23jLabel6MouseClicked
+        Carrinho obj = new Carrinho();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
+    }//GEN-LAST:event_jLabel23jLabel6MouseClicked
+
+    private void jComboBox5jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5jComboBox1ActionPerformed
+
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+        Meus_Pedidos obj = new Meus_Pedidos();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
+    }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void mais_vendidos_home4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mais_vendidos_home4MouseClicked
+       MaisVendidos obj = new MaisVendidos();
+       DesktopHome.add (obj);
+       obj.setVisible(true);
+       setMaximized(obj);
+    }//GEN-LAST:event_mais_vendidos_home4MouseClicked
+
+    private void promocoes_home4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_promocoes_home4MouseClicked
+       Promocoes obj = new Promocoes();
+       DesktopHome.add (obj);
+       obj.setVisible(true);
+       setMaximized(obj);
+    }//GEN-LAST:event_promocoes_home4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -431,6 +462,7 @@ public class Home extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -441,42 +473,31 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JDesktopPane DesktopPrincipal;
-    public javax.swing.JMenu MenuCategoria;
-    public javax.swing.JMenuItem MenuCategoriaAdministracao;
-    public javax.swing.JMenuItem MenuCategoriaAgropecuaria;
-    public javax.swing.JMenuItem MenuCategoriaAudiobook;
-    public javax.swing.JMenuItem MenuCategoriaAutoajuda;
-    public javax.swing.JMenuItem MenuCategoriaBibliograficos;
-    public javax.swing.JMenuItem MenuCategoriaCientífico;
-    public javax.swing.JMenuItem MenuCategoriaContos;
-    public javax.swing.JMenuItem MenuCategoriaDidatico;
-    public javax.swing.JMenuItem MenuCategoriaFiccao;
-    public javax.swing.JMenuItem MenuCategoriaHorror;
-    public javax.swing.JMenuItem MenuCategoriaInfantojuvenil;
-    public javax.swing.JMenuItem MenuCategoriaInformatica;
-    public javax.swing.JMenuItem MenuCategoriaLiteraturaBR;
-    public javax.swing.JMenuItem MenuCategoriaLiteraturaEstrangeira;
-    public javax.swing.JMenuItem MenuCategoriaMatematica;
-    public javax.swing.JMenuItem MenuCategoriaMedicina;
-    public javax.swing.JMenuItem MenuCategoriaRomance;
-    public javax.swing.JMenu MenuLivros;
-    public javax.swing.JMenu MenuLivrosDigitais;
-    public javax.swing.JMenuItem MenuLivrosDigitaisLancamentos;
-    public javax.swing.JMenuItem MenuLivrosDigitaisMaisVendidos;
-    public javax.swing.JMenuItem MenuLivrosDigitaisPreVenda;
+    private javax.swing.JDesktopPane DesktopHome;
+    private javax.swing.JMenu MenuLivros;
+    private javax.swing.JMenu MenuLivrosDigitais;
+    private javax.swing.JMenuItem MenuLivrosDigitaisLancamentos;
+    private javax.swing.JMenuItem MenuLivrosDigitaisMaisVendidos;
+    private javax.swing.JMenuItem MenuLivrosDigitaisPreVenda;
     public javax.swing.JMenuItem MenuLivrosLancamento;
-    public javax.swing.JMenuItem MenuLivrosMaisVendidos;
-    public javax.swing.JMenuItem MenuLivrosPreVenda;
-    public javax.swing.JLabel atendimento_home;
-    public javax.swing.JButton button_ok_home;
-    public javax.swing.JComboBox<String> combo_filtro_home;
-    public javax.swing.JMenuBar jMenuBar1;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JLabel login_home;
-    public javax.swing.JLabel mais_vendidos_home;
-    public javax.swing.JLabel nossas_lojas_home;
-    public javax.swing.JLabel promocoes_home;
-    public javax.swing.JLabel televendas;
+    private javax.swing.JMenuItem MenuLivrosMaisVendidos;
+    private javax.swing.JMenuItem MenuLivrosPreVenda;
+    private javax.swing.JLabel atendimento_home4;
+    private javax.swing.JButton button_ok_home4;
+    private javax.swing.JComboBox<String> combo_filtro_home4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel login_home4;
+    private javax.swing.JLabel mais_vendidos_home4;
+    private javax.swing.JLabel nossas_lojas_home4;
+    private javax.swing.JLabel promocoes_home4;
+    private javax.swing.JLabel televendas4;
     // End of variables declaration//GEN-END:variables
 }
