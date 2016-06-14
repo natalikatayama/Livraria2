@@ -94,10 +94,20 @@ public class Home extends javax.swing.JFrame {
         promocoes_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         promocoes_home4.setText("Promoções do dia");
         promocoes_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        promocoes_home4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                promocoes_home4MouseClicked(evt);
+            }
+        });
 
         mais_vendidos_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         mais_vendidos_home4.setText("Mais vendidos");
         mais_vendidos_home4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mais_vendidos_home4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mais_vendidos_home4MouseClicked(evt);
+            }
+        });
 
         login_home4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         login_home4.setText("Entre ou cadastre-se");
@@ -395,9 +405,10 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_login_home4login_homeMouseClicked
 
     private void jLabel23jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23jLabel6MouseClicked
-        Carrinho carrinhoForm = new Carrinho();
-        carrinhoForm.setVisible(true);
-        carrinhoForm.setLocationRelativeTo(null);
+        Carrinho obj = new Carrinho();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
     }//GEN-LAST:event_jLabel23jLabel6MouseClicked
 
     private void jComboBox5jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5jComboBox1ActionPerformed
@@ -405,10 +416,25 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox5jComboBox1ActionPerformed
 
     private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
-        ResumoPedido pedidoForm = new ResumoPedido();
-        pedidoForm.setVisible(true);
-        pedidoForm.setLocationRelativeTo(null);
+        Meus_Pedidos obj = new Meus_Pedidos();
+        DesktopHome.add (obj);
+        obj.setVisible(true);
+        setMaximized(obj);
     }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void mais_vendidos_home4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mais_vendidos_home4MouseClicked
+       MaisVendidos obj = new MaisVendidos();
+       DesktopHome.add (obj);
+       obj.setVisible(true);
+       setMaximized(obj);
+    }//GEN-LAST:event_mais_vendidos_home4MouseClicked
+
+    private void promocoes_home4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_promocoes_home4MouseClicked
+       Promocoes obj = new Promocoes();
+       DesktopHome.add (obj);
+       obj.setVisible(true);
+       setMaximized(obj);
+    }//GEN-LAST:event_promocoes_home4MouseClicked
 
     /**
      * @param args the command line arguments

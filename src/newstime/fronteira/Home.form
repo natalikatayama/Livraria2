@@ -292,6 +292,9 @@
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="promocoes_home4MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="mais_vendidos_home4">
           <Properties>
@@ -303,6 +306,9 @@
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mais_vendidos_home4MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="login_home4">
           <Properties>
