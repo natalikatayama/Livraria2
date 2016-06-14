@@ -1,3 +1,4 @@
+//TODO: Testar
 package newstime.controle;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import newstime.excecao.NegocioException;
 
 /**
  * Classe para controle das vendas pelo lado do funcionário
- * @author Fábio
+ * @author Ian Melo
  */
 public class ControleGerenciaVenda {
     /**
@@ -36,7 +37,13 @@ public class ControleGerenciaVenda {
      * <br/>Aqui os erros estão tratados
      * @return Lista com todas as vendas e seus dajos subjacentes 
      */
-    public ArrayList<Venda> buscarVendas(){
+    public ArrayList<Venda> buscarVendas() {
+        //Verifica a conta do funcionário
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null, "Acesso negado.");
+            return null;
+        }
+        
         try {
             BancoDados bd = new BancoDados();
             VendaDAO vDao = new VendaDAO(bd);
@@ -92,7 +99,13 @@ public class ControleGerenciaVenda {
      * @param indice Índice da lista de vendas
      * @return Lista de vendas atualizadas
      */
-    public ArrayList<Venda> concluirParcela(int indice){
+    public ArrayList<Venda> concluirParcela(int indice) {
+        //Verifica a conta do funcionário
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null, "Acesso negado.");
+            return null;
+        }
+        
         BancoDados bd = new BancoDados();
         VendaDAO vDao = new VendaDAO(bd);
         PagamentoDAO pgDao = new PagamentoDAO(bd);
@@ -110,8 +123,11 @@ public class ControleGerenciaVenda {
             if(vant.getStatus() == Venda.StatusVenda.AGUARDO) {
                 for(ItemPedido ix : vx.getPedido().getItensPedido()) {
                     lx = ix.getLivro();
-                    //Diminui a quantidade e altera no banco
+                    //Diminui a quantidade de estoque
                     lx.setQtdEstoque(lx.getQtdEstoque() - ix.getQuantidade());
+                    //Aumenta a quantidade vendida
+                    lx.setQtdVendida(lx.getQtdVendida() + ix.getQuantidade());
+                    //Altera no banco
                     lDao.alterar(lx);
                 }
             }
@@ -138,7 +154,13 @@ public class ControleGerenciaVenda {
      * @param indice Índice da lista de vendas
      * @return Lista de vendas atualizadas
      */
-    public ArrayList<Venda> concluirEntrega(int indice){
+    public ArrayList<Venda> concluirEntrega(int indice) {
+        //Verifica a conta do funcionário
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null, "Acesso negado.");
+            return null;
+        }
+        
         BancoDados bd = new BancoDados();
         VendaDAO vDao = new VendaDAO(bd);
         Venda vx;
@@ -168,6 +190,12 @@ public class ControleGerenciaVenda {
      * @return Lista de vendas atualizadas
      */
     public ArrayList<Venda> excluirVenda(int indice) {
+        //Verifica a conta do funcionário
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null, "Acesso negado.");
+            return null;
+        }
+        
         BancoDados bd = new BancoDados();
         VendaDAO vDao = new VendaDAO(bd);
         EnderecoDAO edDao = new EnderecoDAO(bd);
@@ -217,7 +245,6 @@ public class ControleGerenciaVenda {
     }
     /**
      * Verifica a conta do funcionário, indicando se este está logado ou não
-     * <br/>Seria interessante utilizar no início do uso da classe
      * @return true, se estiver logado
      * <br/>false, caso contrário
      */

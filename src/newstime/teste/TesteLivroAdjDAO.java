@@ -46,6 +46,7 @@ public class TesteLivroAdjDAO {
             l.setTitulo("A Classe Insecta");
             l.setResumo("Aqui vai o resumo...");
             l.setSumario("Aqui vai o sumário...");
+            l.setFormato(Livro.FormatoLivro.BROCHURA);
             l.setAnoPublicacao(1982);
             l.setCategoria(Livro.CategoriaLivro.CIENCIAS_BIO);
             l.setMargemLucro(25.0f);
@@ -93,6 +94,7 @@ public class TesteLivroAdjDAO {
             System.out.println(x.getTitulo());
             System.out.println(x.getResumo());
             System.out.println(x.getSumario());
+            System.out.println(x.getFormato().toString());
             System.out.println(x.getAnoPublicacao());
             System.out.println(x.getCategoria());
             System.out.println(x.getMargemLucro());
@@ -100,8 +102,10 @@ public class TesteLivroAdjDAO {
             System.out.println(x.getPrecoOferta());
             System.out.println(x.getPrecoVenda());
             System.out.println(x.getQtdEstoque());
+            System.out.println(x.getQtdVendida());
             System.out.println(x.isDigital());
             System.out.println(x.isOferta());
+            System.out.println(Arrays.toString(x.getImagem()));
         }
         
         for(Autor x : autores) {

@@ -1,8 +1,11 @@
+//TODO: Implementar; Controle de conta; Documentar
 package newstime.controle;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import newstime.DAO.AutorDAO;
 import newstime.DAO.BancoDados;
@@ -18,120 +21,65 @@ import newstime.excecao.FormatacaoIncorretaException;
 import newstime.excecao.NegocioException;
 
 /**
- * Esta classe controla o cadastro dos livro, verifica se todos os requisitos e
- * campos estão devidamente preenchidos
- *
- * @author Fábio M.
+ * Classe de controle de CRUD de Livro, Autor e Editora
+ * @author Ian Melo
  */
 public class ControleAdministracao {
-
-    private String titulo;
-    private String anoPublicacao;
-    private String resumo;
-    private String sumario;
-    private String formato;
-    private String numPaginas;
-    private String qtdEstoque;
-    private String precoVenda;
-    private String precoOferta;
-    private String precoCusto;
-    private String margemLucro;
-    private String isbn;
-    private String nomeAutor;
-    private String nomeEditora;
-    private String categoria;
-    private boolean digital;
-    private boolean oferta;
-
-    public String getTitulo() {
-        return titulo;
+    public String L_titulo;
+    public String L_anoPublicacao;
+    public String L_resumo;
+    public String L_sumario;
+    public String L_formato;
+    public String L_numPaginas;
+    public String L_qtdEstoque;
+    public String L_precoVenda;
+    public String L_precoOferta;
+    public String L_precoCusto;
+    public String L_margemLucro;
+    public String L_isbn;
+    public String L_nomeAutor;
+    public String L_nomeEditora;
+    public String L_categoria;
+    public boolean L_digital;
+    public boolean L_oferta;
+    
+    //LOGIN-LOGOUT
+    /**
+     * Verifica se o login e senha do administrador batem, e faz login
+     * @param login Login para acesso restrito
+     * @param senha Senha para acesso restrito
+     */
+    public void realizarLogin(String login, String senha) {
+        try {
+            Funcionario f = new Funcionario();
+            f.setLogin(login);
+            f.setSenha(senha);
+            ContaRestrita.logar(f);
+        } catch (BancoException | NegocioException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
-
-    public String getAnoPublicacao() {
-        return anoPublicacao;
+    /**
+     * Sai da conta de funcionário
+     */
+    public void deslogar() {
+        ContaRestrita.deslogar();
     }
-
-    public String getResumo() {
-        return resumo;
-    }
-
-    public String getSumario() {
-        return sumario;
-    }
-
-    public String getFormato() {
-        return formato;
-    }
-
-    public String getNumPaginas() {
-        return numPaginas;
+    /**
+     * Verifica se funcionário está logado
+     * @return 
+     */
+    private boolean verificarConta() {
+        return (ContaRestrita.getFuncionario() != null);
     }
     
-    public String getQtdEstoque() {
-        return qtdEstoque;
-    }
-
-    public String getPrecoVenda() {
-        return precoVenda;
-    }
-
-    public String getPrecoOferta() {
-        return precoOferta;
-    }
-
-    public String getPrecoCusto() {
-        return precoCusto;
-    }
-
-    public String getMargemLucro() {
-        return margemLucro;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public String getNomeAutor() {
-        return nomeAutor;
-    }
-
-    public String getNomeEditora() {
-        return nomeEditora;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public boolean isDigital() {
-        return digital;
-    }
-
-    public boolean isOferta() {
-        return oferta;
-    }
-
+    //CRUD Livro
     /**
-     * Verifica se o login e senha do administrador batem
-     *
-     * @param login
-     * @param senha
-     * @throws newstime.excecao.BancoException
-     * @throws newstime.excecao.NegocioException
-     */
-    public void verificaConta(String login, String senha) throws BancoException, NegocioException {
-        Funcionario f = new Funcionario();
-        f.setLogin(login);
-        f.setSenha(senha);
-        ContaRestrita.logar(f);
-    }
-
-    /**
-     * Cadastra os livros deve ser feito depois dos cadastros de autor e editora
-     *
-     * @param isbn - equivalente ao codigo do livro
+     * Cadastra o livro
+     * <br/>Deve ser feito depois dos cadastros de autor e editora
+     * @param isbn ISBN do livro
      * @param autor - Objeto autor
-     * @param titulo - o titulo do livro
+     * @param titulo - o L_titulo do livro
      * @param editora - a editora com qual o livro pertence
      * @param anoPublicacao
      * @param categoria
@@ -147,10 +95,15 @@ public class ControleAdministracao {
      * @param oferta
      * @param digital
      * @return
-     * @throws newstime.excecao.NegocioException
-     * @throws newstime.excecao.BancoException
      */
-    public boolean inserirLivro(String isbn, String titulo, String autor, String editora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) throws NegocioException, BancoException {
+    public boolean inserirLivro(String isbn, String titulo, String autor, String editora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return false;
+        }
+        
+        
         BancoDados bd = new BancoDados();
         AutorDAO autorDAO = new AutorDAO(bd);
         EditoraDAO editoraDAO = new EditoraDAO(bd);
@@ -203,80 +156,35 @@ public class ControleAdministracao {
         livroDAO.inserir(livro);
         return true;
     }
-
-    public void inserirAutor(String nome, String codigo, String localNasc, String localMorte, String dataNasc, String dataMorte) throws ParseException, BancoException {
-        SimpleDateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
-
-        Autor autor = new Autor();
-        autor.setNome(nome);
-        autor.setCodigo(codigo);
-        autor.setLocalNasci(localNasc);
-        autor.setLocalMorte(localMorte);
-
-        Date dataMort = formaData.parse(dataMorte);
-        autor.setDataMorte(dataMort);
-        Date dataNasce = formaData.parse(dataNasc);
-        autor.setDataNasci(dataNasce);
-
-        BancoDados bd = new BancoDados();
-        AutorDAO autorDAO = new AutorDAO(bd);
-        autorDAO.inserir(autor);
-    }
-
-    public void inserirEditora(String cnpj, String nomeEdi, String endereco, String telefone) throws FormatacaoIncorretaException, BancoException {
-        Editora editora = new Editora();
-        editora.setCnpj(cnpj);
-        editora.setNome(nomeEdi);
-        editora.setEndereco(endereco);
-        editora.setTelefone(telefone);
-
-        BancoDados bd = new BancoDados();
-        EditoraDAO editoraD = new EditoraDAO(bd);
-        editoraD.inserir(editora);
-    }
-
-    public void buscarLivro(String isbn) throws BancoException {
-        BancoDados bd = new BancoDados();
-        LivroDAO livroDAO = new LivroDAO(bd);
-        AutorDAO autorDAO = new AutorDAO(bd);
-        EditoraDAO editoraDAO = new EditoraDAO(bd);
-
-        //Busca livro (ISBN)
-        Livro livro = new Livro();
-        livro.setIsbn(isbn);
-        livro = livroDAO.buscar(livro);
-
-        //Puxa autor
-        Autor autor = new Autor();
-        autor.setID(livro.getID_AUTOR());
-        autor = autorDAO.buscarId(autor);
-
-        //Puxa editora
-        Editora editora = new Editora();
-        editora.setID(livro.getID_EDITORA());
-        editora = editoraDAO.buscarId(editora);
-
-        //Define resultados
-        this.titulo = livro.getTitulo();
-        this.anoPublicacao = String.valueOf(livro.getAnoPublicacao());
-        this.resumo = livro.getResumo();
-        this.sumario = livro.getSumario();
-        this.formato = livro.getFormato().toString();
-        this.numPaginas = String.valueOf(livro.getNumPaginas());
-        this.qtdEstoque = String.valueOf(livro.getQtdEstoque());
-        this.precoVenda = String.valueOf(livro.getPrecoVenda());
-        this.precoOferta = String.valueOf(livro.getPrecoOferta());
-        this.precoCusto = String.valueOf(livro.getPrecoCusto());
-        this.margemLucro = String.valueOf(((int)livro.getMargemLucro()));
-        this.isbn = livro.getIsbn();
-        this.categoria = livro.getCategoria().toString();
-        this.nomeAutor = autor.getNome();
-        this.nomeEditora = editora.getNome();
-        this.oferta = livro.isOferta();
-        this.digital = livro.isDigital();
-    }
-    
-    public boolean alterarLivro(String isbn, String titulo, String autor, String editora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) throws BancoException, NegocioException {
+    /**
+     * Altera o livro
+     * @param isbn
+     * @param titulo
+     * @param autor
+     * @param editora
+     * @param anoPublicacao
+     * @param categoria
+     * @param resumo
+     * @param sumario
+     * @param formato
+     * @param numPaginas
+     * @param qtdEstoque
+     * @param precoVenda
+     * @param precoOferta
+     * @param precoCusto
+     * @param margemLucro
+     * @param oferta
+     * @param digital
+     * @return
+     */
+    public boolean alterarLivro(String isbn, String titulo, String autor, String editora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return false;
+        }
+        
+        
         BancoDados bd1 = new BancoDados();
         LivroDAO livroDAO = new LivroDAO(bd1);
         AutorDAO autorDAO = new AutorDAO(bd1);
@@ -327,8 +235,18 @@ public class ControleAdministracao {
         livroDAO.alterar(livro);
         return true;
     }
-    
-    public void removerLivro(String isbn) throws BancoException {
+    /**
+     * Exclui o livro
+     * @param isbn
+     */
+    public void removerLivro(String isbn) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
         BancoDados bd = new BancoDados();
         LivroDAO livroDAO = new LivroDAO(bd);
 
@@ -339,7 +257,208 @@ public class ControleAdministracao {
 
         //Exclui
         livroDAO.excluir(livro);
+    }
+    /**
+     * Busca o livro
+     * @param isbn
+     */
+    public void buscarLivro(String isbn) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        BancoDados bd = new BancoDados();
+        LivroDAO livroDAO = new LivroDAO(bd);
+        AutorDAO autorDAO = new AutorDAO(bd);
+        EditoraDAO editoraDAO = new EditoraDAO(bd);
 
-        //NOTA: Para segurança, não foi excluído autor nem editora
+        //Busca livro (ISBN)
+        Livro livro = new Livro();
+        livro.setIsbn(isbn);
+        livro = livroDAO.buscar(livro);
+
+        //Puxa autor
+        Autor autor = new Autor();
+        autor.setID(livro.getID_AUTOR());
+        autor = autorDAO.buscarId(autor);
+
+        //Puxa editora
+        Editora editora = new Editora();
+        editora.setID(livro.getID_EDITORA());
+        editora = editoraDAO.buscarId(editora);
+
+        //Define resultados
+        this.L_titulo = livro.getTitulo();
+        this.L_anoPublicacao = String.valueOf(livro.getAnoPublicacao());
+        this.L_resumo = livro.getResumo();
+        this.L_sumario = livro.getSumario();
+        this.L_formato = livro.getFormato().toString();
+        this.L_numPaginas = String.valueOf(livro.getNumPaginas());
+        this.L_qtdEstoque = String.valueOf(livro.getQtdEstoque());
+        this.L_precoVenda = String.valueOf(livro.getPrecoVenda());
+        this.L_precoOferta = String.valueOf(livro.getPrecoOferta());
+        this.L_precoCusto = String.valueOf(livro.getPrecoCusto());
+        this.L_margemLucro = String.valueOf(((int)livro.getMargemLucro()));
+        this.L_isbn = livro.getIsbn();
+        this.L_categoria = livro.getCategoria().toString();
+        this.L_nomeAutor = autor.getNome();
+        this.L_nomeEditora = editora.getNome();
+        this.L_oferta = livro.isOferta();
+        this.L_digital = livro.isDigital();
+    }
+    
+    //CRUD Autor
+    /**
+     * Insere o autor
+     * @param nome
+     * @param codigo
+     * @param localNasc
+     * @param localMorte
+     * @param dataNasc
+     * @param dataMorte
+     */
+    public void inserirAutor(String nome, String codigo, String localNasc, String localMorte, String dataNasc, String dataMorte) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        SimpleDateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Autor autor = new Autor();
+        autor.setNome(nome);
+        autor.setCodigo(codigo);
+        autor.setLocalNasci(localNasc);
+        autor.setLocalMorte(localMorte);
+
+        Date dataMort = formaData.parse(dataMorte);
+        autor.setDataMorte(dataMort);
+        Date dataNasce = formaData.parse(dataNasc);
+        autor.setDataNasci(dataNasce);
+
+        BancoDados bd = new BancoDados();
+        AutorDAO autorDAO = new AutorDAO(bd);
+        autorDAO.inserir(autor);
+    }
+    /**
+     * Altera o autor
+     * @param nome
+     * @param codigo
+     * @param localNasc
+     * @param localMorte
+     * @param dataNasc
+     * @param dataMorte
+     */
+    public void alterarAutor(String nome, String codigo, String localNasc, String localMorte, String dataNasc, String dataMorte) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        //IMPLEMENTAR
+    }
+    /**
+     * Exclui o autor
+     * @param codigo 
+     */
+    public void removerAutor(String codigo) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        //IMPLEMENTAR
+    }
+    /**
+     * Busca o autor
+     * @param codigo 
+     */
+    public void buscarAutor(String codigo) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        //IMPLEMENTAR
+    }
+    
+    //CRUD Editora
+    /**
+     * Insere a editora
+     * @param cnpj
+     * @param nomeEdi
+     * @param endereco
+     * @param telefone
+     */
+    public void inserirEditora(String cnpj, String nomeEdi, String endereco, String telefone) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        Editora editora = new Editora();
+        editora.setCnpj(cnpj);
+        editora.setNome(nomeEdi);
+        editora.setEndereco(endereco);
+        editora.setTelefone(telefone);
+
+        BancoDados bd = new BancoDados();
+        EditoraDAO editoraD = new EditoraDAO(bd);
+        editoraD.inserir(editora);
+    }
+    /**
+     * Altera a editora
+     * @param cnpj
+     * @param nomeEdi
+     * @param endereco
+     * @param telefone
+     */
+    public void alterarEditora(String cnpj, String nomeEdi, String endereco, String telefone) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        //IMPLEMENTAR
+    }
+    /**
+     * Exclui a editora
+     * @param cnpj 
+     */
+    public void removerEditora(String cnpj) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        //IMPLEMENTAR
+    }
+    /**
+     * Busca a editora
+     * @param cnpj 
+     */
+    public void buscarEditora(String cnpj) {
+        //Verifica se funcionário está logando, barrando caso não esteja
+        if(!this.verificarConta()) {
+            JOptionPane.showMessageDialog(null,"Acesso negado.");
+            return;
+        }
+        
+        
+        //IMPLEMENTAR
     }
 }

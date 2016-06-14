@@ -1,3 +1,4 @@
+//TODO: Alterar itens
 package newstime.DAO;
 
 import java.sql.*;
@@ -43,9 +44,10 @@ public class LivroDAO implements DAO<Livro> {
         try {
             //Define String
             sql = "INSERT INTO Livro " +
-                "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FALSE)";
+                "VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,FALSE)";
             //Abre conexao e prepara gatilho
-            pst = bd.abrirConexao().prepareStatement(sql);
+            Connection conn = bd.abrirConexao();
+            pst = conn.prepareStatement(sql);
             //Atrubui os dados
             pst.setString(1, o.getIsbn());
             pst.setString(2, o.getTitulo());
@@ -58,21 +60,26 @@ public class LivroDAO implements DAO<Livro> {
             pst.setString(9, o.getFormato().toString());
             pst.setInt(10, o.getNumPaginas());
             pst.setInt(11,o.getQtdEstoque());
-            pst.setFloat(12,o.getPrecoVenda());
-            pst.setFloat(13,o.getPrecoOferta());
-            pst.setFloat(14,o.getPrecoCusto());
-            pst.setFloat(15, o.getMargemLucro());
-            pst.setBoolean(16, o.isOferta());
-            pst.setBoolean(17, o.isDigital());
+            pst.setInt(12, o.getQtdVendida());
+            pst.setFloat(13,o.getPrecoVenda());
+            pst.setFloat(14,o.getPrecoOferta());
+            pst.setFloat(15,o.getPrecoCusto());
+            pst.setFloat(16, o.getMargemLucro());
+            pst.setBoolean(17, o.isOferta());
+            pst.setBoolean(18, o.isDigital());
+            //Imagem
+            Blob blob = conn.createBlob();
+            blob.setBytes(1,o.getImagem());
+            pst.setBlob(19, blob);
             //Executa
             pst.executeUpdate();
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao inserir o livro.");
+            throw new BancoException("Houve um problema ao inserir o livro."+ex.getMessage());
         }
     }
-
+    
     @Override
     public void alterar(Livro o) throws BancoException {
         try {
@@ -80,7 +87,7 @@ public class LivroDAO implements DAO<Livro> {
             sql = "UPDATE Livro SET " +
                 "Isbn='"+o.getIsbn()+"', Titulo='"+o.getTitulo()+"', CodAutor="+o.getAutor().getID()+", " +
                 "CodEditora="+o.getEditora().getID()+", AnoPublicacao="+o.getAnoPublicacao()+", Categoria='"+o.getCategoria().toString()+"', Resumo='"+o.getResumo()+"', Sumario='"+o.getSumario()+"', " +
-                "Formato='"+o.getFormato().toString()+"', NumPaginas="+o.getNumPaginas()+", QtdEstoque="+o.getQtdEstoque()+", PrecoVenda='"+o.getPrecoVenda()+"', PrecoOferta='"+o.getPrecoOferta()+"', PrecoCusto='"+o.getPrecoCusto()+"', MargemLucro='"+o.getMargemLucro()+"', Q_Oferta="+o.isOferta()+", Q_Digital="+o.isDigital()+" " +
+                "Formato='"+o.getFormato().toString()+"', NumPaginas="+o.getNumPaginas()+", QtdEstoque="+o.getQtdEstoque()+", QtdVendida="+o.getQtdVendida()+", PrecoVenda='"+o.getPrecoVenda()+"', PrecoOferta='"+o.getPrecoOferta()+"', PrecoCusto='"+o.getPrecoCusto()+"', MargemLucro='"+o.getMargemLucro()+"', Q_Oferta="+o.isOferta()+", Q_Digital="+o.isDigital()+", Imagem='"+o.getImagem()+"' " +
                 "WHERE CodLivro="+o.getID();
             //Abre banco e prepara gatilho
             pst = bd.abrirConexao().prepareStatement(sql);
@@ -89,10 +96,10 @@ public class LivroDAO implements DAO<Livro> {
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao alterar o livro."+ex.getMessage());
+            throw new BancoException("Houve um problema ao alterar o livro. "+ex.getMessage());
         }
     }
-
+    
     @Override
     public void excluir(Livro o) throws BancoException {
         try {
@@ -136,6 +143,9 @@ public class LivroDAO implements DAO<Livro> {
                     livro.setQtdEstoque(rs.getInt("QtdEstoque"));
                 } catch (NegocioException ex) {}
                 try {
+                    livro.setQtdVendida(rs.getInt("QtdVendida"));
+                } catch (NegocioException ex) {}
+                try {
                     livro.setPrecoVenda(rs.getFloat("PrecoVenda"));
                 } catch (NegocioException ex) {}
                 try {
@@ -149,6 +159,7 @@ public class LivroDAO implements DAO<Livro> {
                 } catch (NegocioException ex) {}
                 livro.setOferta(rs.getBoolean("Q_Oferta"));
                 livro.setDigital(rs.getBoolean("Q_Digital"));
+                livro.setImagem(rs.getBytes("Imagem"));
                 livro.setID(rs.getInt("CodLivro"));
                 livro.setID_AUTOR(rs.getInt("CodAutor"));
                 livro.setID_EDITORA(rs.getInt("CodEditora"));
@@ -194,6 +205,9 @@ public class LivroDAO implements DAO<Livro> {
                     livro.setQtdEstoque(rs.getInt("QtdEstoque"));
                 } catch (NegocioException ex) {}
                 try {
+                    livro.setQtdVendida(rs.getInt("QtdVendida"));
+                } catch (NegocioException ex) {}
+                try {
                     livro.setPrecoVenda(rs.getFloat("PrecoVenda"));
                 } catch (NegocioException ex) {}
                 try {
@@ -207,6 +221,7 @@ public class LivroDAO implements DAO<Livro> {
                 } catch (NegocioException ex) {}
                 livro.setOferta(rs.getBoolean("Q_Oferta"));
                 livro.setDigital(rs.getBoolean("Q_Digital"));
+                livro.setImagem(rs.getBytes("Imagem"));
                 livro.setID(rs.getInt("CodLivro"));
                 livro.setID_AUTOR(rs.getInt("CodAutor"));
                 livro.setID_EDITORA(rs.getInt("CodEditora"));
@@ -251,6 +266,9 @@ public class LivroDAO implements DAO<Livro> {
                     livro.setQtdEstoque(rs.getInt("QtdEstoque"));
                 } catch (NegocioException ex) {}
                 try {
+                    livro.setQtdVendida(rs.getInt("QtdVendida"));
+                } catch (NegocioException ex) {}
+                try {
                     livro.setPrecoVenda(rs.getFloat("PrecoVenda"));
                 } catch (NegocioException ex) {}
                 try {
@@ -264,6 +282,7 @@ public class LivroDAO implements DAO<Livro> {
                 } catch (NegocioException ex) {}
                 livro.setOferta(rs.getBoolean("Q_Oferta"));
                 livro.setDigital(rs.getBoolean("Q_Digital"));
+                livro.setImagem(rs.getBytes("Imagem"));
                 livro.setID(rs.getInt("CodLivro"));
                 livro.setID_AUTOR(rs.getInt("CodAutor"));
                 livro.setID_EDITORA(rs.getInt("CodEditora"));

@@ -25,17 +25,41 @@ public class ItemPedido {
      */
     private int ID_PEDIDO;
     /**
-     * Identificador do livro do item pedido
+     * Identificador do livro do item
+     * <br/>Somente pedido
      */
     private int ID_LIVRO;
+    /**
+     * Identificador do cliente do item do carrinho
+     * <br/>Somente carrinho
+     */
+    private int ID_CLIENTE;
+    /**
+     * Identificador do item do carrinho
+     * <br/>Somente carrinho
+     */
+    private int ID_CARRINHO;
     
     /**
      * Cria um item do pedido
+     * <br/>Necessário estar logado
      * @param livro Livro do item do pedido
      * @param quantidade Quantidade do item do pedido
-     * @throws NegocioException Caso a quantidade não for positiva ou não houver quantidade suficiente em estoque do livro
+     * @throws NegocioException Caso cliente não esteja logado ou 
+     * a quantidade não for positiva ou não houver quantidade suficiente em estoque do livro
      */
     public void definirItemPedido(Livro livro, int quantidade) throws NegocioException {
+        //Define o ID_CLIENTE ou para, caso não esteja logado
+        if(Conta.getCliente() != null && Conta.getCliente().getID() != 0)
+            this.ID_CLIENTE = Conta.getCliente().getID();
+        else
+            throw new NegocioException("Entre ou cadastre-se.");
+        //Define o ID_LIVRO ou para, caso não exista livro
+        if(livro != null)
+            this.ID_LIVRO = livro.getID();
+        else
+            throw new NegocioException("Livro não escolhido.");
+        
         //Define o livro
         this.setLivro(livro);
         //Caso não haja quantidade disponível joga exceção e interrompe
@@ -126,6 +150,7 @@ public class ItemPedido {
     //IDENTIFICADORES
     /**
      * Retorna o identificador do pedido do item pedido
+     * <br/>Somente pedido
      * @return Identificador do pedido do item pedido
      */
     public int getID_PEDIDO() {
@@ -133,24 +158,57 @@ public class ItemPedido {
     }
     /**
      * Define o identificador do pedido do item pedido
+     * <br/>Somente pedido
      * @param ID_PEDIDO Identificador do pedido do item pedido
      */
     public void setID_PEDIDO(int ID_PEDIDO) {
         this.ID_PEDIDO = ID_PEDIDO;
     }
     /**
-     * Retorna o identificador do livro do item pedido
-     * @return Identificador do livro do item pedido
+     * Retorna o identificador do livro do item
+     * @return Identificador do livro do item
      */
     public int getID_LIVRO() {
         return ID_LIVRO;
     }
     /**
-     * Define o identificador do livro do item pedido
-     * @param ID_LIVRO Identificador do livro do item pedido
+     * Define o identificador do livro do item
+     * @param ID_LIVRO Identificador do livro do item
      */
     public void setID_LIVRO(int ID_LIVRO) {
         this.ID_LIVRO = ID_LIVRO;
+    }
+    /**
+     * Retorna o identificador do cliente do item do carrinho
+     * <br/>Somente carrinho
+     * @return Identificador do cliente do item do carrinho
+     */
+    public int getID_CLIENTE() {
+        return ID_CLIENTE;
+    }
+    /**
+     * Define o identificador do cliente do item do carrinho
+     * <br/>Somente carrinho
+     * @param ID_CLIENTE Identificador do cliente do item do carrinho
+     */
+    public void setID_CLIENTE(int ID_CLIENTE) {
+        this.ID_CLIENTE = ID_CLIENTE;
+    }
+    /**
+     * Retorna o identificador do item do carrinho
+     * <br/>Somente carrinho
+     * @return Identificador do item do carrinho
+     */
+    public int getID_CARRINHO() {
+        return ID_CARRINHO;
+    }
+    /**
+     * Define o identificador do item do carrinho
+     * <br/>Somente carrinho
+     * @param ID_CARRINHO Identificador do item do carrinho
+     */
+    public void setID_CARRINHO(int ID_CARRINHO) {
+        this.ID_CARRINHO = ID_CARRINHO;
     }
     
     //VALIDADORES

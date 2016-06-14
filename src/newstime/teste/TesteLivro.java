@@ -1,5 +1,6 @@
 package newstime.teste;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +50,7 @@ public class TesteLivro {
             l.setPrecoVenda(50.0f);
             l.setPrecoOferta(35.0f);
             l.setQtdEstoque(500);
+            l.setQtdVendida(0);
             l.setDigital(false);
             l.setOferta(false);
         } catch (NegocioException ex) {
@@ -67,8 +69,10 @@ public class TesteLivro {
         System.out.println(l.getPrecoOferta());
         System.out.println(l.getPrecoVenda());
         System.out.println(l.getQtdEstoque());
+        System.out.println(l.getQtdVendida());
         System.out.println(l.isDigital());
         System.out.println(l.isOferta());
+        System.out.println(Arrays.toString(l.getImagem())); //Não tem uso
         
         //Exibição do autor do livro
         System.out.println(l.getAutor().getDataMorte());

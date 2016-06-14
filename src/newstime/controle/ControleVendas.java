@@ -26,15 +26,14 @@ import newstime.excecao.NegocioException;
 
 
 /**
- * Controla todo o sistema de venda e pagamento.
- * <br/>É possivel verificar os itens do pedido quanto o proprio pedido por inteiro.
- * <br/>Instancie o controle na classe
- * @author Fábio M.
+ * Controla a realização da venda por parte do cliente da livraria
+ * @author Ian Melo
  */
 public class ControleVendas {
-    
+    /**
+     * Venda do processo de realização
+     */
     Venda venda = new Venda();
-    
     /**
      * Cria o pedido da venda e define o endereço padrão do cliente nela
      * @throws newstime.excecao.NegocioException Caso o cliente não esteja logado
@@ -43,15 +42,6 @@ public class ControleVendas {
         //Abrtura de pedido
         Pedido p = new Pedido();
         p.abrirPedido();
-        
-        //Apresentar isso caso não está logado ou cadastrado (quem chamar)
-        /*
-        CadastroUsuario j1 = new CadastroUsuario();
-        j1.setVisible(true);
-        UsuarioCadastrado j2 = new UsuarioCadastrado();
-        j2.setVisible(true);
-        */
-        
         //Define pedido e agrega à venda
         ArrayList<ItemPedido> itens = Carrinho.getItens();
         p.setCliente(Conta.getCliente());
@@ -61,18 +51,15 @@ public class ControleVendas {
         //Copia endereço de cliente e agrega à venda
         venda.setEndereco(Conta.getCliente().getEndereco());
     }
-    
-
     /**
      * Define a entrega da venda
-     * @param tipo
-     * @param dataEntrega
+     * @param tipo Tipo de entrega
+     * @param dataEntrega Data de entrega
      */
     public void definirEntrega(String tipo, String dataEntrega){
         //Conforme o modelo dd/mm/aaaa
         String[] sData = dataEntrega.split("/");
         Date data = new Date(Integer.parseInt(sData[2]),Integer.parseInt(sData[1]),Integer.parseInt(sData[0]));
-        
         //Define entrega
         Entrega et = new Entrega();
         try {
@@ -93,12 +80,10 @@ public class ControleVendas {
         //Agrega à venda
         venda.setEntrega(et);
     }
-    
-    
     /**
      * Define o pagamento da venda
-     * @param forma
-     * @param numParcelas 
+     * @param forma Forma de pagamento
+     * @param numParcelas Número de parcelas
      */
     public void definirPagamento(String forma, int numParcelas){
         //Define pagamento
@@ -115,16 +100,15 @@ public class ControleVendas {
         //Agrega à venda
         venda.setPagamento(pg);
     }
-    
     /**
      * Define o endereço da venda
-     * @param logradouro
-     * @param numero
-     * @param complemento
-     * @param bairro
-     * @param cidade
-     * @param estado
-     * @param cep 
+     * @param logradouro Logradouro do endereço
+     * @param numero Número do endereço
+     * @param complemento Complemento do endereço
+     * @param bairro Bairro do endereço
+     * @param cidade Cidade do endereço
+     * @param estado Estado do endereço
+     * @param cep CEP do endereço
      */
    public void definirEndereco(String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String cep){
         //Define o endereço
@@ -143,7 +127,6 @@ public class ControleVendas {
         //Agrega à venda
         venda.setEndereco(ed);
    } 
-   
    /**
     * Registra a venda por inserção no BD
     */

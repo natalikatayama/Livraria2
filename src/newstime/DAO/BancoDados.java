@@ -21,7 +21,7 @@ public class BancoDados {
     /**
      * Caminho do BD da livraria
      */
-    private final String caminho = "jdbc:mysql://localhost:3306/livraria";
+    private final String caminho = "jdbc:mysql://localhost:3306/livraria2";
     /**
      * Usuário
      */

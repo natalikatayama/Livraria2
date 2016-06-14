@@ -54,6 +54,10 @@ public class TesteCarrinho {
             Logger.getLogger(TesteLivro.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //Conta de cliente
+        Conta.setCliente(new Cliente());
+        Conta.getCliente().setID(1); //ID aleatório
+        
         ItemPedido i = new ItemPedido();
         ItemPedido i2 = new ItemPedido();
         ItemPedido i3 = new ItemPedido();
@@ -66,6 +70,10 @@ public class TesteCarrinho {
             Logger.getLogger(TesteItem.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
+        
+        //Definição do cliente no carrinho
+        Cliente c = new Cliente();
+        Carrinho.setCliente(c);
         
         //Adição de itens ao carrinho
         Carrinho.adicionarItem(i);

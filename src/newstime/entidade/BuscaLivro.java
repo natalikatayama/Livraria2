@@ -62,6 +62,11 @@ public class BuscaLivro {
     }
     
     /**
+     * Quantidade máxima de livros a ser exibido em 'mais vendidos'
+     */
+    private static final int QTD_EXIBICAO = 20;
+    
+    /**
      * Busca uma lista de livros que condizem com os parâmetros
      * @param palChave Palavra chave
      * @param criterio Critério de busca
@@ -182,6 +187,38 @@ public class BuscaLivro {
         return retorno;
     }
     /**
+     * Busca o livro pelo ISBN
+     * @param isbn ISBN do livro
+     * @return Livro que corresponda ao ISBN indicado
+     * @throws BancoException Caso dê algum erro ao buscar
+     */
+    public ArrayList<Livro> buscarISBN(String isbn) throws BancoException {
+        BancoDados bd = new BancoDados();
+        LivroDAO livroDAO = new LivroDAO(bd);
+        AutorDAO autorDAO = new AutorDAO(bd);
+        EditoraDAO editoraDAO = new EditoraDAO(bd);
+        
+        Livro liOb = new Livro();
+        liOb.setIsbn(isbn);
+        liOb = livroDAO.buscar(liOb);
+        
+        Autor autor = new Autor();
+        autor.setID(liOb.getID_AUTOR());
+        autor = autorDAO.buscarId(autor);
+            
+        Editora editora = new Editora();
+        editora.setID(liOb.getID_EDITORA());
+        editora = editoraDAO.buscarId(editora);
+        
+        liOb.setAutor(autor);
+        liOb.setEditora(editora);
+        
+        ArrayList<Livro> lvs = new ArrayList<>();
+        lvs.add(liOb);
+        
+        return lvs;
+    }
+    /**
      * Busca uma lista de livros que estejam em oferta
      * @return Lista de livros que estejam em oferta
      * @throws newstime.excecao.BancoException Caso dê algum erro ao buscar
@@ -213,21 +250,43 @@ public class BuscaLivro {
         return retorno;
     }
     /**
-     * ----INUTILIZADO----<br/>
      * Busca uma lista de lista de livros mais vendidos
      * @return Lista de lista de livros mais vendidos
      * @throws newstime.excecao.BancoException Caso dê algum erro ao buscar
      */
     public ArrayList<Livro> buscarMaisVendidos() throws BancoException {
-        return null;
-    }
-    /**
-     * ----INUTILIZADO----<br/>
-     * Busca uma lista de lista de livros por categorias
-     * @return Lista de lista de livros por categorias
-     */
-    public ArrayList<Livro> buscarCategorias() {
-        return null;
+        ArrayList<Livro> retorno = new ArrayList<>();
+        BancoDados bd = new BancoDados();
+        LivroDAO lDao = new LivroDAO(bd);
+        AutorDAO aDao = new AutorDAO(bd);
+        EditoraDAO eDao = new EditoraDAO(bd);
+        Editora e = new Editora();
+        Autor a = new Autor();
+        //Busca os livros
+        livros = (ArrayList<Livro>) lDao.listar();
+        for(int i = 0;i < livros.size();i++) {
+            //Busca respectiva editora
+            e.setID(livros.get(i).getID_EDITORA());
+            e = eDao.buscarId(e);
+            livros.get(i).setEditora(e);
+            //Busca respectivo autor
+            a.setID(livros.get(i).getID_AUTOR());
+            a = aDao.buscarId(a);
+            livros.get(i).setAutor(a);
+        }
+        //Ordena o resultado, colocando os livros com quantidades de venda em primeiro
+        Collections.sort(livros,(g,h) -> ((h.getQtdVendida()- g.getQtdVendida())));
+        //Verifica os n livros mais vendidos (de acordo com a QTD_EXIBICAO), com quantidade de vendas acima de 0
+        int cont = 0;
+        for(Livro x : livros) {
+            if(x.getQtdVendida() > 0 && cont < BuscaLivro.QTD_EXIBICAO) {
+                retorno.add(x);
+                cont++;
+            } else //Para, se a quantidade do livro for 0 (os seguintes terão a mesma quantidade) ou chegar à QTD_EXIBICAO
+                break;
+        }
+        return retorno;
+    
     }
     /**
      * Busca uma lista de lista de livros que sejam físicos

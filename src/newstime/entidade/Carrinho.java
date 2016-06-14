@@ -12,6 +12,10 @@ public class Carrinho {
      * Itens do carrinho de compras
      */
     private static final ArrayList<ItemPedido> itens = new ArrayList<>();
+    /**
+     * Cliente do carrinho de compras
+     */
+    private static Cliente cliente;
     
     /**
      * Adiciona o item ao carrinho de compras
@@ -30,7 +34,7 @@ public class Carrinho {
             int p = itens.indexOf(item);
             //Altera o item
             itens.get(p).definirItemPedido(item.getLivro(), item.getQuantidade());
-        } catch (NegocioException ex) { } //Não é necessário, uma vez que já foi definido
+        } catch (NegocioException ex) { } //Não haverá erro, pois já foi definido corretamente
     }
     /**
      * Retira o item do carrinho de compras
@@ -53,5 +57,20 @@ public class Carrinho {
      */
     public static ArrayList<ItemPedido> getItens() {
         return itens;
-    }   
+    }
+    /**
+     * Retorna o cliente do carrinho de compras
+     * @return 
+     */
+    public static Cliente getCliente() {
+        return cliente;
+    }
+    /**
+     * Define o cliente do carrinho de compras
+     * @param cliente
+     */
+    public static void setCliente(Cliente cliente) {
+        Carrinho.cliente = cliente;
+    }
+    
 }

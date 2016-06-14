@@ -1,6 +1,7 @@
 package newstime.entidade;
 
 import java.util.Objects;
+import javax.swing.ImageIcon;
 import newstime.excecao.NegocioException;
 
 /**
@@ -106,6 +107,10 @@ public class Livro {
      */
     private int qtdEstoque;
     /**
+     * Quantidade de livro vendida
+     */
+    private int qtdVendida;
+    /**
      * Preço de venda do livro
      */
     private float precoVenda;
@@ -130,6 +135,10 @@ public class Livro {
      */
     private boolean digital;
     /**
+     * Imagem do livro
+     */
+    private byte[] imagem = {};
+    /**
      * Identificador do livro
      */
     private int ID;
@@ -141,6 +150,18 @@ public class Livro {
      * Identificador da editora do livro
      */
     private int ID_EDITORA;
+    
+    /**
+     * Retorna um ícone de imagem 
+     * @return 
+     */
+    public ImageIcon getIconeImagem() {
+        ImageIcon icone = new ImageIcon();
+        if(this.getImagem() != null){            
+            icone  = new ImageIcon(getImagem()); 
+        }       
+        return icone;
+    }
     
     //GETTERS SETTERS
     /**
@@ -297,10 +318,29 @@ public class Livro {
      * @throws newstime.excecao.NegocioException Caso não atenda a regra definida
      */
     public void setQtdEstoque(int qtdEstoque) throws NegocioException {
-        if(this.validarQtdEstoque(qtdEstoque))
+        if(this.validarQuantidade(qtdEstoque))
             this.qtdEstoque = qtdEstoque;
         else
             throw new NegocioException("A quantidade em estoque deve ser 0 ou acima.");
+    }
+    /**
+     Retorna a quantidade de livro vendida
+     * @return Quantidade de livro vendida
+     */
+    public int getQtdVendida() {
+        return qtdVendida;
+    }
+    /**
+     * Define a quantidade de livro vendida
+     * <br/>Deve ser 0 ou acima
+     * @throws newstime.excecao.NegocioException Caso não atenda a regra definida
+     * @param qtdVendida Quantidade de livro vendida
+     */
+    public void setQtdVendida(int qtdVendida) throws NegocioException {
+        if(this.validarQuantidade(qtdVendida))
+            this.qtdVendida = qtdVendida;
+        else
+            throw new NegocioException("A quantidade de livro vendida deve ser 0 ou acima.");
     }
     /**
      * Retorna o preço de venda do livro
@@ -409,6 +449,20 @@ public class Livro {
     public void setDigital(boolean digital) {
         this.digital = digital;
     }
+    /**
+     * Retorna a imagem do livro
+     * @return Imagem do livro
+     */
+    public byte[] getImagem() {
+        return imagem;
+    }
+    /**
+     * Define a imagem do livro
+     * @param imagem Imagem do livro
+     */
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
     
     //IDENTIFICADORES
     /**
@@ -480,7 +534,7 @@ public class Livro {
      * @return true, se for acima ou igual a 0
      * <br/>false, caso contrário
      */
-    private boolean validarQtdEstoque(int qtdEstoque) {
+    private boolean validarQuantidade(int qtdEstoque) {
         return (qtdEstoque >= 0);
     }
     

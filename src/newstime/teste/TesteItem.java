@@ -55,6 +55,8 @@ public class TesteItem {
             Logger.getLogger(TesteLivro.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        Conta.setCliente(new Cliente());
+        Conta.getCliente().setID(100);
         ItemPedido i = new ItemPedido();
         //Definição do item
         try {

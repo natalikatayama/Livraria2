@@ -121,8 +121,8 @@ CREATE TABLE ItemPedido( /*Dep. Pedido, Livro; FRACA*/
 	FOREIGN KEY(CodLivro) REFERENCES Livro(CodLivro)
 );
 
-CREATE TABLE VT_ItemCarrinho( /*Dep. Cliente, Livro; FRACA*/
-	IdCliente INT(11),
+CREATE TABLE ItemCarrinho( /*Dep. Cliente, Livro; FRACA*/
+	IdCliente INT(11) AUTO_INCREMENT,
 	CodLivro INT(11),
 	Quantidade INT(2),
 	Subtotal DECIMAL(6,2),
