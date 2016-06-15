@@ -1,3 +1,4 @@
+//TODO: Testar;
 package newstime.controle;
 
 import java.util.ArrayList;

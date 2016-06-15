@@ -120,11 +120,11 @@ public class AutorDAO implements DAO<Autor> {
         try {
             Autor autor = null;
             //Define String
-            sql = "SELECT * FROM Autor WHERE Nome=? AND XDEAD=FALSE";
+            sql = "SELECT * FROM Autor WHERE CodigoAlt=? AND XDEAD=FALSE";
             //Abre banco e prepara gatilho
             pst = bd.abrirConexao().prepareStatement(sql);
             //Atribui os dados
-            pst.setString(1, o.getNome());
+            pst.setString(1, o.getCodigo());
             //Executa e puxa a busca
             rs = pst.executeQuery();
             //Verifica se houve resultados e atribui valores ao objeto

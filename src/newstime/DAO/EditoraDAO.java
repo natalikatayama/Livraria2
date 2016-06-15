@@ -96,11 +96,11 @@ public class EditoraDAO implements DAO<Editora> {
         try {
             Editora editora = null;
             //Define String
-            sql = "SELECT * FROM Editora WHERE Nome=? AND XDEAD=FALSE";
+            sql = "SELECT * FROM Editora WHERE Cnpj=? AND XDEAD=FALSE";
             //Abre banco e prepara gatilho
             pst = bd.abrirConexao().prepareStatement(sql);
             //Atribui os dados
-            pst.setString(1, o.getNome());
+            pst.setString(1, o.getCnpj());
             //Executa e puxa a busca
             rs = pst.executeQuery();
             //Verifica se houve resultados e atribui valores ao objeto

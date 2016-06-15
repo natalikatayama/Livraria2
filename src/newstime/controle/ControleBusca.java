@@ -28,7 +28,7 @@ public class ControleBusca {
      * Vai enviar os parametros para buscar um livro atravez do objeto
      * BuscaLivro e retornar o livro se caso encontrado
      * <br/><br/>
-     * São aceitos os seguintes critérios
+     * São aceitos os seguintes critérios:<br/>
      * 0 = Filtros<br/>
      * 1 = Editora<br/>
      * 2 = Título<br/>
@@ -72,7 +72,7 @@ public class ControleBusca {
     /**
      * Organiza por ordem definida
      * <br/><br/>
-     * São aceitos os seguintes critérios:
+     * São aceitos os seguintes critérios:<br/>
      * 0 = Filtros<br/>
      * 1 = Editora<br/>
      * 2 = Título<br/>
@@ -80,7 +80,7 @@ public class ControleBusca {
      * 4 = ISBN<br/>
      * 5 = Categoria
      * <br/><br/>
-     * São aceitos as seguintes organizações
+     * São aceitas as seguintes organizações:<br/>
      * 0 = Alfabético crescente<br/>
      * 1 = Alfabético decrescente<br/>
      * 2 = Por preço crescente<br/>
