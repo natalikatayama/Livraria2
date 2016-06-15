@@ -1,5 +1,5 @@
-CREATE DATABASE livraria;
-USE livraria;
+CREATE DATABASE livraria2;
+USE livraria2;
 CREATE TABLE Funcionario (
 	IdFuncionario INT(11) AUTO_INCREMENT,
 	Login VARCHAR(20),

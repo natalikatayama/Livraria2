@@ -14,9 +14,60 @@ import newstime.excecao.*;
  */
 public class TesteVendaAdjDAO {
     public static void main(String[] args) {
-        //Define uma conta
-        Conta.setCliente(new Cliente());
-        Conta.getCliente().setID(1);
+        /*Cria cliente*/
+        Endereco end = new Endereco();
+        //Definição do endereço
+        try {
+            end.setLogradouro("Rua Martinez");
+            end.setNumero("223");
+            end.setComplemento("Apt. 27");
+            end.setCep("01223-998");
+            end.setBairro("Andrade");
+            end.setCidade("São Roque");
+            end.setEstado("RJ");
+            end.setReferencia("Uma quadra antes do estádio");
+        } catch (FormatacaoIncorretaException ex) {
+            Logger.getLogger(TesteEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+        
+        Cliente cli = new Cliente();
+        //Define cliente
+        try {    
+            cli.setEmail("joaomarques@gmail.com");
+            cli.setSenha("12345678");
+            cli.setNome("João");
+            cli.setSobrenome("Marques Dias");
+            cli.setSexo("M");
+            cli.setCpf("111.222.333-40");
+            cli.setDataNascimento(new Date(89,3,19));
+            cli.setTelefone("(11)4057-8866");
+            cli.setTelefoneAlt("(11)4056-1234");
+            cli.setCelular("(11)97022-1212");
+            cli.setEndereco(end);
+        } catch (FormatacaoIncorretaException ex) {
+            Logger.getLogger(TesteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+        
+        BancoDados banco = new BancoDados();
+        ClienteDAO cDao = new ClienteDAO(banco);
+        EnderecoDAO enDao = new EnderecoDAO(banco);
+        
+        try {
+            enDao.inserir(end);
+            end = enDao.buscar(end);
+            
+            cli.setEndereco(end);
+            cDao.inserir(cli);
+            cli = cDao.buscar(cli);
+        } catch (BancoException ex) {
+            Logger.getLogger(TesteClienteAdjDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+
+        //Define o cliente da conta
+        Conta.setCliente(cli);
         
         Autor a = new Autor();
         //Definição do autor
@@ -85,7 +136,6 @@ public class TesteVendaAdjDAO {
         try {
             p.abrirPedido();
             p.setCliente(Conta.getCliente());
-            p.setID_CLIENTE(1);
             p.setDataHora(new Date());
             p.setItensPedido(itens);
         } catch (NegocioException ex) {
@@ -224,13 +274,11 @@ public class TesteVendaAdjDAO {
         System.out.println(v.getStatus().toString());
         
         /*DAO*/
-        BancoDados banco = new BancoDados();
         AutorDAO aDao = new AutorDAO(banco);
         EditoraDAO edDao = new EditoraDAO(banco);
         LivroDAO lDao = new LivroDAO(banco);
         ItemPedidoDAO iDao = new ItemPedidoDAO(banco);
         PedidoDAO peDao = new PedidoDAO(banco);
-        EnderecoDAO enDao = new EnderecoDAO(banco);
         EntregaDAO etDao = new EntregaDAO(banco);
         PagamentoDAO paDao = new PagamentoDAO(banco);
         VendaDAO vDao = new VendaDAO(banco);
@@ -255,11 +303,17 @@ public class TesteVendaAdjDAO {
             e1 = etDao.buscar(e1);
             //Pedido
             peDao.inserir(p);
+            p.setID_CLIENTE(p.getCliente().getID());
+            System.out.println(p.getDataHora());
+            System.out.println(p.getID_CLIENTE());
             p2 = peDao.buscar(p);
+            p2.setItensPedido(p.getItensPedido());
+            p2.setCliente(p.getCliente());
             //ItemPedido
-            for(ItemPedido xx : p.getItensPedido()) {
-                xx.setID_LIVRO(1);
-                xx.setID_PEDIDO(1);
+            for(ItemPedido xx : p2.getItensPedido()) {
+                System.out.println("");
+                xx.setID_LIVRO(5); //GAMBIARRA - é necessário ter um livro cadastrado
+                xx.setID_PEDIDO(p2.getID());
                 iDao.inserir(xx);
                 break;
             }
@@ -267,7 +321,7 @@ public class TesteVendaAdjDAO {
             v.setEndereco(en);
             v.setPagamento(pg);
             v.setEntrega(e1);
-            v.setPedido(p);
+            v.setPedido(p2);
             vDao.inserir(v);
             v = vDao.buscar(v);
             
@@ -344,8 +398,9 @@ public class TesteVendaAdjDAO {
             e1 = etDao.buscarId(e1);
             etDao.alterar(e1);
             //Pedido
-            p2 = peDao.buscarId(p2);
-            peDao.alterar(p2);
+            p = peDao.buscarId(p2);
+            p.setCliente(p2.getCliente());
+            peDao.alterar(p);
             //Venda
             v.setEndereco(en);
             v.setPagamento(pg);
@@ -492,8 +547,9 @@ public class TesteVendaAdjDAO {
         }
         
         try {
-            v = vDao.buscar(v);
-        } catch (BancoException ex) {
+            v.setPedido(p);
+            vDao.buscar(v);
+        } catch (BancoException | NullPointerException ex) {
             Logger.getLogger(TesteVendaAdjDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

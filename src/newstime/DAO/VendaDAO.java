@@ -46,10 +46,10 @@ public class VendaDAO implements DAO<Venda> {
             //Atrubui os dados
             pst.setString(1,o.getStatus().toString());
             pst.setString(2,o.getPago().toString());
-            pst.setInt(3,o.getID_PEDIDO());
-            pst.setInt(4,o.getID_ENDERECO());
-            pst.setInt(5,o.getID_PAGAMENTO());
-            pst.setInt(6, o.getID_ENTREGA());
+            pst.setInt(3,o.getPedido().getID());
+            pst.setInt(4,o.getEndereco().getID());
+            pst.setInt(5,o.getPagamento().getID());
+            pst.setInt(6, o.getEntrega().getID());
             //Executa
             pst.executeUpdate();
             bd.fecharConexao();
@@ -63,8 +63,8 @@ public class VendaDAO implements DAO<Venda> {
     public void alterar(Venda o) throws BancoException {
         try {
             //Define String
-            sql = "UPDATE Venda SET Status='"+o.getStatus().toString()+"', Pago='"+o.getPago().toString()+"', IdPedido="+o.getID_PEDIDO()+", CodEndereco="+o.getID_ENDERECO()+", " +
-                "CodPagamento="+o.getID_PAGAMENTO()+", CodEntrega="+o.getID_ENTREGA()+" WHERE CodVenda="+o.getID();
+            sql = "UPDATE Venda SET Status='"+o.getStatus().toString()+"', Pago='"+o.getPago().toString()+"', IdPedido="+o.getPedido().getID()+", CodEndereco="+o.getEndereco().getID()+", " +
+                "CodPagamento="+o.getPagamento().getID()+", CodEntrega="+o.getEntrega().getID()+" WHERE CodVenda="+o.getID();
             //Abre banco e prepara gatilho
             pst = bd.abrirConexao().prepareStatement(sql);
             //Executa
@@ -101,7 +101,7 @@ public class VendaDAO implements DAO<Venda> {
             //Abre banco e prepara gatilho
             pst = bd.abrirConexao().prepareStatement(sql);
             //Atribui os dados
-            pst.setInt(1, o.getID_PEDIDO());
+            pst.setInt(1, o.getPedido().getID());
             //Executa e puxa a busca
             rs = pst.executeQuery();
             //Verifica se houve resultados e atribui valores ao objeto
