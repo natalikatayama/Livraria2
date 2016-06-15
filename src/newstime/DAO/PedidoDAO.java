@@ -54,7 +54,7 @@ public class PedidoDAO implements DAO<Pedido> {
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao inserir o pedido."+ex.getMessage());
+            throw new BancoException("Houve um problema ao inserir o pedido.");
         }
     }
 

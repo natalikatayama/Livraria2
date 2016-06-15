@@ -55,7 +55,7 @@ public class VendaDAO implements DAO<Venda> {
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao inserir a venda."+ex.getMessage());
+            throw new BancoException("Houve um problema ao inserir a venda.");
         }
     }
 

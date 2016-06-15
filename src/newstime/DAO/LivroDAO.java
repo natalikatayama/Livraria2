@@ -76,7 +76,7 @@ public class LivroDAO implements DAO<Livro> {
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao inserir o livro."+ex.getMessage());
+            throw new BancoException("Houve um problema ao inserir o livro.");
         }
     }
     
@@ -96,7 +96,7 @@ public class LivroDAO implements DAO<Livro> {
             bd.fecharConexao();
         } catch (SQLException ex) {
             bd.fecharConexao();
-            throw new BancoException("Houve um problema ao alterar o livro. "+ex.getMessage());
+            throw new BancoException("Houve um problema ao alterar o livro.");
         }
     }
     
