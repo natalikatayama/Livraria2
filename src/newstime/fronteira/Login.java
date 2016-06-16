@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package newstime.fronteira;
 
-/**
- *
- * @author Nátali-Letícia
- */
+import javax.swing.JOptionPane;
+import newstime.controle.ControleContaCliente;
+import newstime.entidade.Conta;
+
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
-    public Login() {
+    private static Login janela = null;
+    private static Home h = null;
+    private ControleContaCliente conCliente;
+    
+    private Login(Home home) {
         initComponents();
+        Login.h = home;
+    }
+    
+    public static Login getInstance(Home home) {
+        if(janela == null)
+            janela = new Login(home);
+        return janela;
     }
 
     /**
@@ -31,11 +34,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jLabel5 = new javax.swing.JLabel();
+        btnEntrar = new javax.swing.JButton();
+        lblCadstro = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Identificação");
@@ -46,27 +48,19 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Senha:");
 
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEntrarActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Não possui cadastro?");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCadstro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCadstro.setText("Não possui cadastro?");
+        lblCadstro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCadstro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel5.setText("Acesso Restrito");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                lblCadstroMouseClicked(evt);
             }
         });
 
@@ -77,17 +71,16 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(btnEntrar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
+                            .addComponent(lblCadstro)
                             .addGap(8, 8, 8))
                         .addComponent(jLabel2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                        .addComponent(jPasswordField2)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                        .addComponent(txtSenha)
                         .addComponent(jLabel1)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
@@ -99,18 +92,16 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btnEntrar)
+                    .addComponent(lblCadstro))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,69 +123,53 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        CadastroUsuario userForm = new CadastroUsuario();
-        userForm.setLocationRelativeTo(null);
-        userForm.show();
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_jLabel4MouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Acesso_adm admForm = new Acesso_adm ();
-        admForm.show();
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_jLabel5MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        if(!validarCampos()) {
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos.");
+            return;
         }
-        //</editor-fold>
+        
+        conCliente.logar(txtEmail.getText(), txtSenha.getText());
+        if(Conta.getCliente() != null) {
+            JOptionPane.showMessageDialog(null,"Seja bem-vindo(a), "+Conta.getCliente().getNome()+".");
+            limparCampos();
+            
+            //HABILITA CLIENTE
+            Login.h.itemCadastro.setEnabled(false);
+            Login.h.itemLogin.setEnabled(false);
+            
+            Login.h.itemLogout.setEnabled(true);
+            Login.h.itemLivro.setEnabled(true);
+            Login.h.itemCarrinho.setEnabled(true);
+            Login.h.itemPedidos.setEnabled(true);
+            
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+    private void lblCadstroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadstroMouseClicked
+        CadastroUsuario cUsu = CadastroUsuario.getInstance();
+        cUsu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblCadstroMouseClicked
+    
+    private boolean validarCampos() {
+        return (!(txtEmail.getText().equals("") || txtSenha.getText().equals("")));
     }
-
+    
+    private void limparCampos() {
+        txtEmail.setText("");
+        txtSenha.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton jButton1;
+    public javax.swing.JButton btnEntrar;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
-    public javax.swing.JLabel jLabel4;
-    public javax.swing.JLabel jLabel5;
     public javax.swing.JPanel jPanel1;
-    public javax.swing.JPasswordField jPasswordField2;
-    public javax.swing.JTextField jTextField2;
+    public javax.swing.JLabel lblCadstro;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

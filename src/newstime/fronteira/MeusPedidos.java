@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package newstime.fronteira;
 
-/**
- *
- * @author Nátali-Letícia
- */
-public class Meus_Pedidos extends javax.swing.JInternalFrame {
+public class MeusPedidos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NovoJInternalFrame
-     */
-    public Meus_Pedidos() {
+    private static MeusPedidos janela = null;
+    
+    private MeusPedidos() {
         initComponents();
+    }
+    
+    public static MeusPedidos getInstance() {
+        if(janela == null)
+            janela = new MeusPedidos();
+        return janela;
     }
 
     /**
@@ -31,15 +27,13 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Status_Pedido = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<String>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPedido = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-
-        setClosable(true);
+        txtIdPedido = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Meus Pedidos");
@@ -47,9 +41,9 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Status:");
 
-        Status_Pedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos os pedidos", "Pedido realizado", "Pagamento Aprovado", "Em separação", "Saiu para entrega", "Entregue", "Cancelado" }));
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos os pedidos", "Pedido realizado", "Pagamento Aprovado", "Em separação", "Saiu para entrega", "Entregue", "Cancelado" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -60,7 +54,7 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
                 "ID", "Data", "Valor Total"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblPedido);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Mais detalhes do pedido");
@@ -68,10 +62,10 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Informe o ID do pedido:");
 
-        jButton1.setText("OK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBuscar.setText("OK");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnBuscarMouseClicked(evt);
             }
         });
 
@@ -87,14 +81,14 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Status_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnBuscar)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,7 +98,7 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Status_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,8 +107,8 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtIdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addContainerGap(131, Short.MAX_VALUE))
         );
 
@@ -134,15 +128,15 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Meus_Pedidos_Detalhes detalhes = new Meus_Pedidos_Detalhes();
-        detalhes.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        
+        
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Status_Pedido;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -150,7 +144,7 @@ public class Meus_Pedidos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblPedido;
+    private javax.swing.JTextField txtIdPedido;
     // End of variables declaration//GEN-END:variables
 }
