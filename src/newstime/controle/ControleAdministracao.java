@@ -4,8 +4,6 @@ package newstime.controle;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import newstime.DAO.AutorDAO;
 import newstime.DAO.BancoDados;
@@ -37,22 +35,23 @@ public class ControleAdministracao {
     public String L_precoCusto;
     public String L_margemLucro;
     public String L_isbn;
-    public int L_idAutor;
-    public int L_idEditora;
+    public Autor L_Autor;
+    public Editora L_Editora;
     public String L_categoria;
     public boolean L_digital;
     public boolean L_oferta;
     
-    private String A_nome;
-    private String A_autor;
-    private String A_localNasci;
-    private String A_localMorte;
-    private String A_dataNasci;
-    private String A_dataMorte;
-    private String E_cnpj;
-    private String E_nome;
-    private String E_endereco;
-    private String E_teleone;
+    public String A_nome;
+    public String A_codigo;
+    public String A_localNasci;
+    public String A_localMorte;
+    public Date A_dataNasci;
+    public Date A_dataMorte;
+
+    public String E_cnpj;
+    public String E_nome;
+    public String E_endereco;
+    public String E_teleone;
     
     //LOGIN-LOGOUT
     /**
@@ -102,11 +101,10 @@ public class ControleAdministracao {
      * @param precoVenda Preço de venda do livro
      * @param precoOferta Preço de oferta do livro
      * @param precoCusto Preço de custo do livro
-     * @param margemLucro Margem de lucro do livro
      * @param oferta Indica se o livro está em oferta
      * @param digital Indica se o livro é digital
      */
-    public void inserirLivro(String isbn, String titulo, int idAutor, int idEditora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) {
+    public void inserirLivro(String isbn, String titulo, int idAutor, int idEditora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, boolean oferta, boolean digital) {
         //Verifica se funcionário está logado, barrando caso não esteja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null,"Acesso negado.");
@@ -161,13 +159,15 @@ public class ControleAdministracao {
             livro.setPrecoVenda(Float.parseFloat(precoVenda));
             livro.setPrecoOferta(Float.parseFloat(precoOferta));
             livro.setPrecoCusto(Float.parseFloat(precoCusto));
-            livro.setMargemLucro(Float.parseFloat(margemLucro));
+            float margemLucro = ((livro.getPrecoVenda()-livro.getPrecoCusto())/livro.getPrecoVenda())*100.0f;
+            livro.setMargemLucro(margemLucro);
             livro.setOferta(oferta);
             livro.setDigital(digital);
             livro.setAutor(autor); //Autor
             livro.setEditora(editora); //Editora
             
             lDao.inserir(livro);
+            JOptionPane.showMessageDialog(null, "O livro foi cadastrado com sucesso.");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null,"Não coloque texto em campo numérico. Utilize '.' como divisor decimal.");
         } catch (NegocioException | BancoException ex) {
@@ -191,11 +191,10 @@ public class ControleAdministracao {
      * @param precoVenda Preço de venda do livro
      * @param precoOferta Preço de oferta do livro
      * @param precoCusto Preço de custo do livro
-     * @param margemLucro Margem de lucro do livro
      * @param oferta Indica se o livro está em oferta
      * @param digital Indica se o livro é digital
      */
-    public void alterarLivro(String isbn, String titulo, int idAutor, int idEditora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, String margemLucro, boolean oferta, boolean digital) {
+    public void alterarLivro(String isbn, String titulo, int idAutor, int idEditora, String anoPublicacao, String categoria, String resumo, String sumario, String formato, String numPaginas, String qtdEstoque, String precoVenda, String precoOferta, String precoCusto, boolean oferta, boolean digital) {
         //Verifica se funcionário está logado, barrando caso não esteja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null,"Acesso negado.");
@@ -251,13 +250,15 @@ public class ControleAdministracao {
             livro.setPrecoVenda(Float.parseFloat(precoVenda));
             livro.setPrecoOferta(Float.parseFloat(precoOferta));
             livro.setPrecoCusto(Float.parseFloat(precoCusto));
-            livro.setMargemLucro(Float.parseFloat(margemLucro));
+            float margemLucro = ((livro.getPrecoVenda()-livro.getPrecoCusto())/livro.getPrecoVenda())*100.0f;
+            livro.setMargemLucro(margemLucro);
             livro.setOferta(oferta);
             livro.setDigital(digital);
             livro.setAutor(autor); //Autor
             livro.setEditora(editora); //Editora
             
             lDao.alterar(livro);
+            JOptionPane.showMessageDialog(null, "O livro foi alterado com sucesso.");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null,"Não coloque texto em campo numérico. Utilize '.' como divisor decimal.");
         } catch (NegocioException | BancoException ex) {
@@ -285,6 +286,7 @@ public class ControleAdministracao {
             livro = lDao.buscar(livro);
             
             lDao.excluir(livro);
+            JOptionPane.showMessageDialog(null, "O livro foi removido com sucesso.");
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
@@ -302,12 +304,20 @@ public class ControleAdministracao {
         
         BancoDados bd = new BancoDados();
         LivroDAO livroDAO = new LivroDAO(bd);
+        AutorDAO aDao = new AutorDAO(bd);
+        EditoraDAO eDao = new EditoraDAO(bd);
         
         Livro livro = new Livro();
+        Editora ed = new Editora();
+        Autor au = new Autor();
         //Busca livro, caso não encontre, pára
         try {
             livro.setIsbn(isbn);
             livro = livroDAO.buscar(livro);
+            au.setID(livro.getID_AUTOR());
+            au = aDao.buscarId(au);
+            ed.setID(livro.getID_EDITORA());
+            ed = eDao.buscarId(ed);
         } catch(BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             this.L_titulo = "";
@@ -323,8 +333,8 @@ public class ControleAdministracao {
             this.L_margemLucro = "";
             this.L_isbn = "";
             this.L_categoria = "";
-            this.L_idAutor = 0;
-            this.L_idEditora = 0;
+            this.L_Autor = null;
+            this.L_Editora = null;
             this.L_oferta = false;
             this.L_digital = false;
             return;
@@ -341,11 +351,11 @@ public class ControleAdministracao {
         this.L_precoVenda = String.valueOf(livro.getPrecoVenda());
         this.L_precoOferta = String.valueOf(livro.getPrecoOferta());
         this.L_precoCusto = String.valueOf(livro.getPrecoCusto());
-        this.L_margemLucro = String.valueOf(((int)livro.getMargemLucro()));
+        this.L_margemLucro = String.valueOf(livro.getMargemLucro());
         this.L_isbn = livro.getIsbn();
         this.L_categoria = livro.getCategoria().toString();
-        this.L_idAutor = livro.getID_AUTOR();
-        this.L_idEditora = livro.getID_EDITORA();
+        this.L_Autor = au;
+        this.L_Editora = ed;
         this.L_oferta = livro.isOferta();
         this.L_digital = livro.isDigital();
     }
@@ -360,7 +370,7 @@ public class ControleAdministracao {
      * @param dataNasc Data de nascimento do autor
      * @param dataMorte Data de morte do autor
      */
-    public void inserirAutor(String nome, String codigo, String localNasc, String localMorte, String dataNasc, String dataMorte) {
+    public void inserirAutor(String nome, String codigo, String localNasc, String localMorte, Date dataNasc, Date dataMorte) {
         //Verifica se funcionário está logado, barrando caso não esteja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null,"Acesso negado.");
@@ -379,23 +389,16 @@ public class ControleAdministracao {
             return;
         } catch (BancoException ex) { }
         
-        SimpleDateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataMort;
-        Date dataNasce;
         try {
             autor.setNome(nome);
             autor.setCodigo(codigo);
             autor.setLocalNasci(localNasc);
             autor.setLocalMorte(localMorte);
-            //Data
-            dataMort = formaData.parse(dataMorte);
-            autor.setDataMorte(dataMort);
-            dataNasce = formaData.parse(dataNasc);
-            autor.setDataNasci(dataNasce);
+            autor.setDataMorte(dataMorte);
+            autor.setDataNasci(dataNasc);
             
             aDao.inserir(autor);
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Houve um problema de formatação de data ao inserir o autor.");
+            JOptionPane.showMessageDialog(null, "Autor cadastrado.");
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -409,7 +412,7 @@ public class ControleAdministracao {
      * @param dataNasc Data de nascimento do autor
      * @param dataMorte Data de morte do autor
      */
-    public void alterarAutor(String nome, String codigo, String localNasc, String localMorte, String dataNasc, String dataMorte) {
+    public void alterarAutor(String nome, String codigo, String localNasc, String localMorte, Date dataNasc, Date dataMorte) {
         //Verifica se funcionário está logado, barrando caso não esteja
         if(!this.verificarConta()) {
             JOptionPane.showMessageDialog(null,"Acesso negado.");
@@ -429,23 +432,16 @@ public class ControleAdministracao {
             return;
         }
         
-        SimpleDateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataMort;
-        Date dataNasce;
         try {
             autor.setNome(nome);
             autor.setCodigo(codigo);
             autor.setLocalNasci(localNasc);
             autor.setLocalMorte(localMorte);
-            //Data
-            dataMort = formaData.parse(dataMorte);
-            autor.setDataMorte(dataMort);
-            dataNasce = formaData.parse(dataNasc);
-            autor.setDataNasci(dataNasce);
+            autor.setDataMorte(dataMorte);
+            autor.setDataNasci(dataNasc);
             
             aDao.alterar(autor);
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Houve um problema de formatação de data ao alterar o autor.");
+            JOptionPane.showMessageDialog(null, "Autor alterado.");
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -471,6 +467,7 @@ public class ControleAdministracao {
             autor = aDao.buscar(autor);
             
             aDao.excluir(autor);
+            JOptionPane.showMessageDialog(null, "Autor removido.");
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null,"Não existe autor de código indicado.");
         }
@@ -497,22 +494,20 @@ public class ControleAdministracao {
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null,"Não existe autor de código indicado.");
             this.A_nome = "";
-            this.A_autor = "";
+            this.A_codigo = "";
             this.A_localNasci = "";
             this.A_localMorte = "";
-            this.A_dataNasci = "";
-            this.A_dataMorte = "";
+            this.A_dataNasci = null;
+            this.A_dataMorte = null;
             return;
         }
         
-        SimpleDateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
-        
         this.A_nome = autor.getNome();
-        this.A_autor = autor.getCodigo();
+        this.A_codigo = autor.getCodigo();
         this.A_localNasci = autor.getLocalNasci();
         this.A_localMorte = autor.getLocalMorte();
-        this.A_dataNasci = formaData.format(autor.getDataNasci());
-        this.A_dataMorte = formaData.format(autor.getDataMorte());
+        this.A_dataNasci = autor.getDataNasci();
+        this.A_dataMorte = autor.getDataMorte();
     }
     
     //CRUD Editora
@@ -551,6 +546,7 @@ public class ControleAdministracao {
             editora.setTelefone(telefone);
             
             eDao.inserir(editora);
+            JOptionPane.showMessageDialog(null, "Editora cadastrada.");
         } catch (FormatacaoIncorretaException | BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -590,6 +586,7 @@ public class ControleAdministracao {
             editora.setTelefone(telefone);
             
             eDao.alterar(editora);
+            JOptionPane.showMessageDialog(null, "Editora alterada.");
         } catch (FormatacaoIncorretaException | BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -613,6 +610,7 @@ public class ControleAdministracao {
             editora = eDao.buscar(editora);
             
             eDao.excluir(editora);
+            JOptionPane.showMessageDialog(null, "Editora removida.");
         } catch (BancoException ex) {
             JOptionPane.showMessageDialog(null, "Não existe editora de CNPJ indicado.");
         } catch (FormatacaoIncorretaException ex) {

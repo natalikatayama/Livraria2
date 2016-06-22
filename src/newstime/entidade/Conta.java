@@ -69,7 +69,7 @@ public class Conta {
         String senha = cliente.getSenha();
         //Verifica se já está cadastrado
         if(Conta.getCliente()!= null)
-            throw new NegocioException("Você já está logado");
+            throw new NegocioException("Você já está logado.");
         
         //Busca o cliente
         try {

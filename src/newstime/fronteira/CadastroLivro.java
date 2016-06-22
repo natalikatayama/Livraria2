@@ -1,21 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package newstime.fronteira;
 
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import newstime.DAO.AutorDAO;
+import newstime.DAO.BancoDados;
+import newstime.DAO.EditoraDAO;
+import newstime.controle.ControleAdministracao;
+import newstime.entidade.Autor;
+import newstime.entidade.Editora;
+import newstime.excecao.BancoException;
+
 /**
- *
- * @author Gabriel
+ * Classe do formulário de CRUD do livro
+ * @author lukin
  */
-public class CadastroLivro extends javax.swing.JInternalFrame {
+public class CadastroLivro extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastroLivros
+     * Creates new form CadastroLivro
      */
+    private boolean oferta = false, digital = false;//variaveis para radio buton
+
     public CadastroLivro() {
         initComponents();
+        this.setTitle("Cadastro de Livros - Livraria Newstime");
+        //Gera os anos
+        Date atual = new Date();
+        for(int i = (atual.getYear()+1900);i >= 1000;i--)
+            cmb_ano.addItem(String.valueOf(i));
+        
+        //Autor-Editora
+        BancoDados db = new BancoDados();
+        AutorDAO aDAO = new AutorDAO(db);
+        EditoraDAO eDAO = new EditoraDAO(db);
+        ArrayList<Autor> listaAutores;
+        ArrayList<Editora> listaEditoras;
+        try {
+            listaAutores = (ArrayList<Autor>) aDAO.listar();
+            listaEditoras = (ArrayList<Editora>) eDAO.listar();
+        } catch (BancoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
+        
+        cmb_autor.removeAllItems();
+        cmb_autor.addItem("Selecione...");
+        
+        cmb_editora.removeAllItems();
+        cmb_editora.addItem("Selecione...");
+        
+        for (Autor listaAutore : listaAutores) {
+            cmb_autor.addItem(listaAutore);
+        }
+        for (Editora listaEditora : listaEditoras) {
+            cmb_editora.addItem(listaEditora);
+        }
     }
 
     /**
@@ -27,344 +67,646 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nome_autor_txt = new javax.swing.JTextField();
+        txt_titulo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        titulo_txt = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        ano_txt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        editora_txt = new javax.swing.JTextField();
+        cmb_categoria = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        ISBN_livro = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_resumo = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
-        qtd_txt = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        preco_livro = new javax.swing.JTextField();
-        preco_revenda = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        categoria_livro = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        resumo_txt = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        sumario_txt = new javax.swing.JTextArea();
-        livro_digital_select = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
+        txt_sumario = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
-        oferta_livro_select = new javax.swing.JComboBox<>();
+        rdo_digitalSim = new javax.swing.JRadioButton();
+        rdo_digitalNao = new javax.swing.JRadioButton();
+        jLabel13 = new javax.swing.JLabel();
+        rdo_ofertSim = new javax.swing.JRadioButton();
+        rdo_ofertaNao = new javax.swing.JRadioButton();
+        jLabel14 = new javax.swing.JLabel();
+        txt_numPaginas = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        margem_lucro = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        txt_precoVenda = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        preco_oferta = new javax.swing.JTextField();
-        button_cadastro = new javax.swing.JButton();
-        button_pesquisar = new javax.swing.JButton();
-        button_alterar = new javax.swing.JButton();
-        button_excluir = new javax.swing.JButton();
-        pais_livro = new javax.swing.JComboBox<>();
+        txt_precoOferta = new javax.swing.JTextField();
+        btn_pesquisar = new javax.swing.JButton();
+        btn_alterar = new javax.swing.JButton();
+        btn_cadastrar = new javax.swing.JButton();
+        btn_excluir = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        cmb_ano = new javax.swing.JComboBox<String>();
+        txt_qtd = new javax.swing.JFormattedTextField();
+        txt_isbn = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        txt_precoCusto = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        cmb_formato = new javax.swing.JComboBox<String>();
+        cmb_autor = new javax.swing.JComboBox();
+        cmb_editora = new javax.swing.JComboBox();
+        txt_margemLucro = new javax.swing.JTextField();
 
-        setClosable(true);
+        setPreferredSize(new java.awt.Dimension(870, 740));
+        setResizable(false);
+        setSize(new java.awt.Dimension(870, 740));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Livros");
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel2.setLabelFor(cmb_autor);
+        jLabel2.setText("Autor:");
+        jLabel2.setToolTipText("Selecione o autor do livro.");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Nome do Autor");
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel3.setLabelFor(txt_titulo);
+        jLabel3.setText("Título:");
+        jLabel3.setToolTipText("Digite o título do livro.");
 
-        jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | java.awt.Font.BOLD));
-        jLabel5.setText("Tíutlo");
+        txt_titulo.setToolTipText("Digite o título do livro.");
+        txt_titulo.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        titulo_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titulo_txtActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel4.setLabelFor(cmb_editora);
+        jLabel4.setText("Editora:");
+        jLabel4.setToolTipText("Selecione a editora do livro.");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Ano de publicação");
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel5.setLabelFor(cmb_ano);
+        jLabel5.setText("Ano de Publicação:");
+        jLabel5.setToolTipText("Selecione o ano de publicação do livro.");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Editora");
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel7.setLabelFor(cmb_categoria);
+        jLabel7.setText("Categoria:");
+        jLabel7.setToolTipText("Selecione a categoria do livro.");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("ISBN");
+        cmb_categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..", "ADMINISTRACAO", "AGROPECUARIA", "ARTES", "AUDIOLIVRO", "AUTOAJUDA", "CIENCIAS_BIO", "CIENCIAS_EXA", "CIENCIAS_HUM", "CONTABILIDADE", "IDIOMA", "DICIONARIO", "DIDATICO", "DIREITO", "ECONOMIA", "ENG_TEC", "ESPORTE", "GASTRONOMIA", "GEO_HIST", "INFORMATICA", "LINGUISTICA", "LITER_ESTR", "LITER_INFA", "LITER_NACIO", "MEDICINA", "RELIGIAO", "TURISMO" }));
+        cmb_categoria.setToolTipText("Selecione a categoria do livro.");
+        cmb_categoria.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("País");
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel8.setLabelFor(txt_isbn);
+        jLabel8.setText("ISBN:");
+        jLabel8.setToolTipText("<html> Digite o ISBN do livro.<br/> É por ele que é feito a pesquisa. </html>");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel9.setText("Quantidade:");
+        jLabel9.setToolTipText("<html>\nDigite a quantidade de livros.<br/>\nDigite somente números inteiros não negativos.\n</html>");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel10.setLabelFor(txt_resumo);
         jLabel10.setText("Resumo");
+        jLabel10.setToolTipText("Escreva o resumo do livro.");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Quantidade");
+        txt_resumo.setColumns(20);
+        txt_resumo.setRows(5);
+        txt_resumo.setToolTipText("Escreva o resumo do livro.");
+        txt_resumo.setPreferredSize(new java.awt.Dimension(0, 24));
+        jScrollPane1.setViewportView(txt_resumo);
 
-        qtd_txt.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel11.setLabelFor(txt_sumario);
+        jLabel11.setText("Sumário");
+        jLabel11.setToolTipText("Escreva o sumário do livro.");
+
+        txt_sumario.setColumns(20);
+        txt_sumario.setRows(5);
+        txt_sumario.setToolTipText("Escreva o sumário do livro.");
+        txt_sumario.setPreferredSize(new java.awt.Dimension(0, 24));
+        jScrollPane2.setViewportView(txt_sumario);
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel12.setLabelFor(cmb_formato);
+        jLabel12.setText("Formato do livro:");
+        jLabel12.setToolTipText("Selecione o formato do livro.");
+
+        buttonGroup1.add(rdo_digitalSim);
+        rdo_digitalSim.setText("Sim");
+        rdo_digitalSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                qtd_txtActionPerformed(evt);
+                rdo_digitalSimActionPerformed(evt);
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Sumário");
+        buttonGroup1.add(rdo_digitalNao);
+        rdo_digitalNao.setSelected(true);
+        rdo_digitalNao.setText("Não");
+        rdo_digitalNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdo_digitalNaoActionPerformed(evt);
+            }
+        });
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Livro Digital? ");
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel13.setText("Em Oferta?");
+        jLabel13.setToolTipText("<html>\nIndique se o livro estará em oferta.<br/>\nIsso fará com que o preço de oferta seja válido no momento da venda.\n</html>");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel21.setText("Preço para revenda");
+        buttonGroup2.add(rdo_ofertSim);
+        rdo_ofertSim.setText("Sim");
+        rdo_ofertSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdo_ofertSimActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Categoria");
+        buttonGroup2.add(rdo_ofertaNao);
+        rdo_ofertaNao.setSelected(true);
+        rdo_ofertaNao.setText("Não");
+        rdo_ofertaNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdo_ofertaNaoActionPerformed(evt);
+            }
+        });
 
-        categoria_livro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Administração", "Agropecuária", "Audiobook", "Autoajuda", "Bibliográficos", "Científico", "Contos", "Didáticos", "Ficção", "Horror", "Infantojuvenil", "Informática", "Literatura Brasileira", "Literatura Estrangeira", "Matemática", "Medicina", "Romance" }));
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel14.setText("Livro Digital?");
+        jLabel14.setToolTipText("Indique se o livro é digital ou não.");
 
-        resumo_txt.setColumns(20);
-        resumo_txt.setRows(5);
-        jScrollPane2.setViewportView(resumo_txt);
+        txt_numPaginas.setToolTipText("<html>\nDigite o número de páginas do livro.<br/>\nDigite somente números inteiros.\n</html>");
+        txt_numPaginas.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        sumario_txt.setColumns(20);
-        sumario_txt.setRows(5);
-        jScrollPane3.setViewportView(sumario_txt);
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel15.setText("Margem de Lucro (%):");
 
-        livro_digital_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Sim", "Não" }));
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel16.setLabelFor(txt_precoVenda);
+        jLabel16.setText("Preço de Venda:");
+        jLabel16.setToolTipText("<html> Digite o preço pelo qual o livro será vendido.<br/> Digite somente números positivos. Use \".\" como separador de casa decimal. </html>");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Preço de Custo");
+        txt_precoVenda.setToolTipText("<html>\nDigite o preço pelo qual o livro será vendido.<br/>\nDigite somente números positivos. Use \".\" como separador de casa decimal.\n</html>");
+        txt_precoVenda.setPreferredSize(new java.awt.Dimension(0, 24));
+        txt_precoVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precoVendaKeyTyped(evt);
+            }
+        });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Oferta?");
+        jLabel17.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel17.setLabelFor(txt_precoOferta);
+        jLabel17.setText("Preço de Oferta:");
+        jLabel17.setToolTipText("<html> Digite o preço pelo qual o livro será vendido em oferta.<br/> Digite somente números positivos. Use \".\" como separador de casa decimal. </html>");
 
-        oferta_livro_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Sim ", "Não" }));
+        txt_precoOferta.setToolTipText("<html>\nDigite o preço pelo qual o livro será vendido em oferta.<br/>\nDigite somente números positivos. Use \".\" como separador de casa decimal.\n</html>");
+        txt_precoOferta.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("Margem de Lucro");
+        btn_pesquisar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btn_pesquisar.setText("Pesquisar");
+        btn_pesquisar.setToolTipText("");
+        btn_pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisarActionPerformed(evt);
+            }
+        });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setText("Preço de Oferta");
+        btn_alterar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btn_alterar.setText("Alterar");
+        btn_alterar.setEnabled(false);
+        btn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterarActionPerformed(evt);
+            }
+        });
 
-        button_cadastro.setText("Cadastrar");
+        btn_cadastrar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btn_cadastrar.setText("Cadastrar");
+        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastrarActionPerformed(evt);
+            }
+        });
 
-        button_pesquisar.setText("Pesquisar");
+        btn_excluir.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btn_excluir.setText("Excluir");
+        btn_excluir.setEnabled(false);
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
 
-        button_alterar.setText("Alterar");
+        jButton5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jButton5.setText("Limpar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
-        button_excluir.setText("Excluir");
+        cmb_ano.setToolTipText("Selecione o ano de publicação do livro.");
+        cmb_ano.setAutoscrolls(true);
+        cmb_ano.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        pais_livro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Afeganistão", "África do Sul", "Akrotiri", "Albânia", "Alemanha", "Andorra", "Angola", "Anguila", "Antárctida", "Antígua e Barbuda", "Antilhas Neerlandesas", "Arábia Saudita", "Arctic Ocean", "Argélia", "Argentina", "Arménia", "Aruba", "Ashmore and Cartier Islands", "Atlantic Ocean", "Austrália", "Áustria", "Azerbaijão", "Baamas", "Bangladeche", "Barbados", "Barém", "Bélgica", "Belize", "Benim", "Bermudas", "Bielorrússia", "Birmânia", "Bolívia", "Bósnia e Herzegovina", "Botsuana", "Brasil", "Brunei", "Bulgária", "Burquina Faso", "Burúndi", "Butão", "Cabo Verde", "Camarões", "Camboja", "Canadá", "Catar", "Cazaquistão", "Chade", "Chile", "China", "Chipre", "Clipperton Island", "Colômbia", "Comores", "Congo-Brazzaville", "Congo-Kinshasa", "Coral Sea Islands", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Croácia", "Cuba", "Dhekelia", "Dinamarca", "Domínica", "Egipto", "Emiratos Árabes Unidos", "Equador", "Eritreia", "Eslováquia", "Eslovénia", "Espanha", "Estados Unidos", "Estónia", "Etiópia", "Faroé", "Fiji", "Filipinas", "Finlândia", "França", "Gabão", "Gâmbia", "Gana", "Gaza Strip", "Geórgia", "Geórgia do Sul e Sandwich do Sul", "Gibraltar", "Granada", "Grécia", "Gronelândia", "Guame", "Guatemala", "Guernsey", "Guiana", "Guiné", "Guiné Equatorial", "Guiné-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "Iémen", "Ilha Bouvet", "Ilha do Natal", "Ilha Norfolk", "Ilhas Caimão", "Ilhas Cook", "Ilhas dos Cocos", "Ilhas Falkland", "Ilhas Heard e McDonald", "Ilhas Marshall", "Ilhas Salomão", "Ilhas Turcas e Caicos", "Ilhas Virgens Americanas", "Ilhas Virgens Britânicas", "Índia", "Indian Ocean", "Indonésia", "Irão", "Iraque", "Irlanda", "Islândia", "Israel", "Itália", "Jamaica", "Jan Mayen", "Japão", "Jersey", "Jibuti", "Jordânia", "Kuwait", "Laos", "Lesoto", "Letónia", "Líbano", "Libéria", "Líbia", "Listenstaine", "Lituânia", "Luxemburgo", "Macau", "Macedónia", "Madagáscar", "Malásia", "Malávi", "Maldivas", "Mali", "Malta", "Man, Isle of", "Marianas do Norte", "Marrocos", "Maurícia", "Mauritânia", "Mayotte", "México", "Micronésia", "Moçambique", "Moldávia", "Mónaco", "Mongólia", "Monserrate", "Montenegro", "Mundo", "Namíbia", "Nauru", "Navassa Island", "Nepal", "Nicarágua", "Níger", "Nigéria", "Niue", "Noruega", "Nova Caledónia", "Nova Zelândia", "Omã", "Pacific Ocean", "Países Baixos", "Palau", "Panamá", "Papua-Nova Guiné", "Paquistão", "Paracel Islands", "Paraguai", "Peru", "Pitcairn", "Polinésia Francesa", "Polónia", "Porto Rico", "Portugal", "Quénia", "Quirguizistão", "Quiribáti", "Reino Unido", "República Centro-Africana", "República Checa", "República Dominicana", "Roménia", "Ruanda", "Rússia", "Salvador", "Samoa", "Samoa Americana", "Santa Helena", "Santa Lúcia", "São Cristóvão e Neves", "São Marinho", "São Pedro e Miquelon", "São Tomé e Príncipe", "São Vicente e Granadinas", "Sara Ocidental", "Seicheles", "Senegal", "Serra Leoa", "Sérvia", "Singapura", "Síria", "Somália", "Southern Ocean", "Spratly Islands", "Sri Lanca", "Suazilândia", "Sudão", "Suécia", "Suíça", "Suriname", "Svalbard e Jan Mayen", "Tailândia", "Taiwan", "Tajiquistão", "Tanzânia", "Território Britânico do Oceano Índico", "Territórios Austrais Franceses", "Timor Leste", "Togo", "Tokelau", "Tonga", "Trindade e Tobago", "Tunísia", "Turquemenistão", "Turquia", "Tuvalu", "Ucrânia", "Uganda", "União Europeia", "Uruguai", "Usbequistão", "Vanuatu", "Vaticano", "Venezuela", "Vietname", "Wake Island", "Wallis e Futuna", "West Bank", "Zâmbia", "Zimbabué" }));
+        txt_qtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        txt_qtd.setToolTipText("<html>\nDigite a quantidade de livros.<br/>\nDigite somente números inteiros não negativos.\n</html>");
+        txt_qtd.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel1)
-                                        .addComponent(titulo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(65, 65, 65)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(editora_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(ISBN_livro, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(qtd_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(ano_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(168, 168, 168)
-                                            .addComponent(jLabel13))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(72, 72, 72)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(pais_livro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel9))
-                                            .addGap(82, 82, 82)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel2)
-                                                .addComponent(categoria_livro, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(livro_digital_select, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(preco_livro, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel15)
-                                    .addComponent(margem_lucro)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(button_cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(preco_revenda, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(preco_oferta, javax.swing.GroupLayout.Alignment.LEADING)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(button_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(button_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(button_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(nome_autor_txt)
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14)
-                            .addComponent(oferta_livro_select, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nome_autor_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titulo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editora_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ano_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoria_livro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pais_livro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel11))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ISBN_livro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qtd_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(livro_digital_select, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(preco_livro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(preco_revenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(oferta_livro_select, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(margem_lucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(preco_oferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_cadastro)
-                    .addComponent(button_alterar)
-                    .addComponent(button_pesquisar)
-                    .addComponent(button_excluir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel19)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
+        txt_isbn.setToolTipText("<html>\nDigite o ISBN do livro.<br/>\nÉ por ele que é feito a pesquisa.\n</html>");
+        txt_isbn.setPreferredSize(new java.awt.Dimension(0, 24));
 
-        jScrollPane1.setViewportView(jPanel1);
+        jLabel20.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel20.setLabelFor(txt_precoCusto);
+        jLabel20.setText("Preço de Custo:");
+        jLabel20.setToolTipText("<html> Digite o preço de custo do livro.<br/> Digite somente números positivos. Use \".\" como separador de casa decimal. </html>");
+
+        txt_precoCusto.setToolTipText("<html> Digite o preço de custo do livro.<br/> Digite somente números positivos. Use \".\" como separador de casa decimal. </html>");
+        txt_precoCusto.setPreferredSize(new java.awt.Dimension(0, 24));
+        txt_precoCusto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precoCustoKeyTyped(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel21.setLabelFor(txt_numPaginas);
+        jLabel21.setText("Número de páginas:");
+        jLabel21.setToolTipText("<html> Digite o número de páginas do livro.<br/> Digite somente números inteiros. </html>");
+
+        cmb_formato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..", "BROCHURA", "GRAMPO", "CAPA_DURA", "DIGITAL" }));
+        cmb_formato.setToolTipText("Selecione o formato do livro.");
+        cmb_formato.setPreferredSize(new java.awt.Dimension(0, 24));
+
+        cmb_autor.setToolTipText("Selecione o autor do livro.");
+        cmb_autor.setPreferredSize(new java.awt.Dimension(0, 24));
+
+        cmb_editora.setToolTipText("Selecione a editora do livro.");
+        cmb_editora.setPreferredSize(new java.awt.Dimension(0, 24));
+
+        txt_margemLucro.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txt_margemLucro.setEnabled(false);
+        txt_margemLucro.setFocusable(false);
+        txt_margemLucro.setOpaque(false);
+        txt_margemLucro.setPreferredSize(new java.awt.Dimension(64, 24));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(72, 72, 72)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel20)
+                                            .addComponent(jLabel16))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_precoVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_precoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(86, 86, 86)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txt_margemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel17)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txt_precoOferta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(126, 126, 126)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rdo_digitalSim)
+                                            .addComponent(rdo_ofertSim)))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rdo_digitalNao)
+                                    .addComponent(rdo_ofertaNao)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel13)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                                    .addComponent(cmb_autor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmb_editora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmb_ano, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_numPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(31, 31, 31)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cmb_formato, 0, 233, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cmb_categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                            .addComponent(btn_cadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_alterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(btn_pesquisar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmb_autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cadastrar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmb_editora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(btn_alterar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(btn_excluir))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmb_ano, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(cmb_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_numPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_formato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_precoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdo_digitalSim)
+                    .addComponent(rdo_digitalNao)
+                    .addComponent(txt_margemLucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_precoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdo_ofertSim)
+                    .addComponent(rdo_ofertaNao)
+                    .addComponent(txt_precoOferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void titulo_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titulo_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titulo_txtActionPerformed
+    private void rdo_digitalSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_digitalSimActionPerformed
+        digital = true;
+    }//GEN-LAST:event_rdo_digitalSimActionPerformed
 
-    private void qtd_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtd_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_qtd_txtActionPerformed
+    private void rdo_digitalNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_digitalNaoActionPerformed
+        digital = false;
+    }//GEN-LAST:event_rdo_digitalNaoActionPerformed
 
+    private void rdo_ofertSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_ofertSimActionPerformed
+        //System.out.println("Sim");
+        oferta = true;
+    }//GEN-LAST:event_rdo_ofertSimActionPerformed
+
+    private void rdo_ofertaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_ofertaNaoActionPerformed
+        //System.out.println("Nao");
+        oferta = false;
+    }//GEN-LAST:event_rdo_ofertaNaoActionPerformed
+
+    private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
+        //Verifica os campos
+        if ("".equals(txt_isbn.getText()) || "".equals(txt_titulo.getText()) || cmb_autor.getSelectedIndex() == 0 ||
+                cmb_editora.getSelectedIndex() == 0 || "Selecione..".equals(cmb_categoria.getSelectedItem().toString()) ||
+                "".equals(txt_resumo.getText()) || "".equals(txt_sumario.getText()) || "".equals(txt_qtd.getText()) ) {
+            JOptionPane.showMessageDialog(null, "Há campos não preenchidos.");
+            return;
+        }
+        
+        //Cadastra
+        ControleAdministracao controleAdm = new ControleAdministracao();
+        String data = "01" + "01" + cmb_ano.getSelectedItem().toString();
+        controleAdm.inserirLivro(txt_isbn.getText(), txt_titulo.getText(), ((Autor)cmb_autor.getSelectedItem()).getID(), ((Editora)cmb_editora.getSelectedItem()).getID(), data, cmb_categoria.getSelectedItem().toString(), txt_resumo.getText(), txt_sumario.getText(),  cmb_formato.getSelectedItem().toString(), txt_numPaginas.getText(), txt_qtd.getText(), txt_precoVenda.getText(), txt_precoOferta.getText(), txt_numPaginas.getText(), oferta, digital);
+
+        limparCampos();
+    }//GEN-LAST:event_btn_cadastrarActionPerformed
+
+    private void btn_pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarActionPerformed
+        //Verifica o campo ISBN
+        if ( "".equals(txt_isbn.getText()) ) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o ISBN para excluir.");
+            txt_isbn.requestFocus();
+            return;
+        }
+        
+        //Pesquisa
+        ControleAdministracao controleAdm = new ControleAdministracao();
+        controleAdm.buscarLivro(txt_isbn.getText());
+        
+        //Não encontrado
+        if(controleAdm.L_titulo.equals(""))
+            return;
+        
+        txt_isbn.setEnabled(false);
+        txt_titulo.setText(controleAdm.L_titulo);
+        for(int i = 1;i < cmb_autor.getModel().getSize();i++)
+            if(((Autor)cmb_autor.getModel().getElementAt(i)).toString().equals(controleAdm.L_Autor.toString()))
+                cmb_autor.setSelectedIndex(i);
+        for(int i = 1;i < cmb_editora.getModel().getSize();i++)
+            if(((Editora)cmb_editora.getModel().getElementAt(i)).toString().equals(controleAdm.L_Editora.toString()))
+                cmb_editora.setSelectedIndex(i);
+        cmb_ano.setSelectedItem(String.valueOf(controleAdm.L_anoPublicacao));
+        cmb_categoria.setSelectedItem(controleAdm.L_categoria);
+        txt_resumo.setText(controleAdm.L_resumo);
+        txt_sumario.setText(controleAdm.L_sumario);
+        txt_qtd.setText(String.valueOf(controleAdm.L_qtdEstoque));
+        txt_precoCusto.setText(String.valueOf(controleAdm.L_precoCusto));
+        txt_precoVenda.setText(String.valueOf(controleAdm.L_precoVenda));
+        txt_precoOferta.setText(String.valueOf(controleAdm.L_precoOferta));
+        txt_numPaginas.setText(String.valueOf(controleAdm.L_numPaginas));
+        cmb_formato.setSelectedItem(controleAdm.L_formato);
+        txt_margemLucro.setText(controleAdm.L_margemLucro);
+        rdo_digitalNao.setSelected(controleAdm.L_digital);
+        rdo_ofertaNao.setSelected(controleAdm.L_oferta);
+        liberaBotao();
+    }//GEN-LAST:event_btn_pesquisarActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        //Verifica o campo ISBN
+        if ( "".equals(txt_isbn.getText()) ) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o ISBN para excluir.");
+            txt_isbn.requestFocus();
+            return;
+        }
+        
+        //Certifica ação, retornando caso cancele
+        if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o livro?") != JOptionPane.YES_OPTION) {
+            return;
+        }
+        //Exclui
+        ControleAdministracao adm = new ControleAdministracao();
+        adm.removerLivro(txt_isbn.getText());
+        txt_isbn.setEditable(true);
+        JOptionPane.showMessageDialog(null,"O livro foi excluído com sucesso.");
+        limparCampos();        
+    }//GEN-LAST:event_btn_excluirActionPerformed
+
+    private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        //Verifica os campos
+        if ("".equals(txt_isbn.getText()) || "".equals(txt_titulo.getText()) || cmb_autor.getSelectedIndex() == 0 ||
+                cmb_editora.getSelectedIndex() == 0 || "Selecione..".equals(cmb_categoria.getSelectedItem().toString()) ||
+                "".equals(txt_resumo.getText()) || "".equals(txt_sumario.getText()) || "".equals(txt_qtd.getText()) ) {
+            JOptionPane.showMessageDialog(null, "Há campos não preenchidos.");
+            return;
+        }
+        
+        //Altera
+        ControleAdministracao adm = new ControleAdministracao();
+        String data = "01" + "01" + cmb_ano.getSelectedItem().toString();
+        adm.alterarLivro(txt_isbn.getText(), txt_titulo.getText(), ((Autor)cmb_autor.getSelectedItem()).getID(), ((Editora)cmb_editora.getSelectedItem()).getID(), data, cmb_categoria.getSelectedItem().toString(), txt_resumo.getText(), txt_sumario.getText(),  cmb_formato.getSelectedItem().toString(), txt_numPaginas.getText(), txt_qtd.getText(), txt_precoVenda.getText(), txt_precoOferta.getText(), txt_numPaginas.getText(), oferta, digital);
+        JOptionPane.showMessageDialog(null, "O livro foi alterado com sucesso.");
+        txt_isbn.setEditable(true);
+        limparCampos();
+    }//GEN-LAST:event_btn_alterarActionPerformed
+
+    private void txt_precoCustoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precoCustoKeyTyped
+        if(!txt_precoCusto.getText().equals("") && !txt_precoVenda.getText().equals("")) {
+            try {
+                float p_custo = Float.parseFloat(txt_precoCusto.getText());
+                float p_venda = Float.parseFloat(txt_precoVenda.getText());
+                txt_margemLucro.setText(String.valueOf((((p_venda-p_custo)/p_venda)*100.0f)));
+            } catch(NumberFormatException | ArithmeticException ex) {
+                txt_margemLucro.setText("#INVÁLIDO");
+            }
+        } else {
+            txt_margemLucro.setText("");
+        }
+    }//GEN-LAST:event_txt_precoCustoKeyTyped
+
+    private void txt_precoVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precoVendaKeyTyped
+        if(!txt_precoCusto.getText().equals("") && !txt_precoVenda.getText().equals("")) {
+            try {
+                float p_custo = Float.parseFloat(txt_precoCusto.getText());
+                float p_venda = Float.parseFloat(txt_precoVenda.getText());
+                txt_margemLucro.setText(String.valueOf((((p_venda-p_custo)/p_venda)*100.0f)));
+            } catch(NumberFormatException | ArithmeticException ex) {
+                txt_margemLucro.setText("#INVÁLIDO");
+            }
+        } else {
+            txt_margemLucro.setText("");
+        }
+    }//GEN-LAST:event_txt_precoVendaKeyTyped
+    
+    public void limparCampos() {
+        txt_isbn.setText("");
+        txt_titulo.setText("");
+        cmb_autor.setSelectedIndex(0);
+        cmb_editora.setSelectedIndex(0);
+        cmb_ano.setSelectedItem("1950");
+        cmb_categoria.setSelectedItem("Selecione..");
+        txt_resumo.setText("");
+        txt_sumario.setText("");
+        txt_qtd.setText("");
+        txt_precoCusto.setText("");
+        txt_precoVenda.setText("");
+        txt_precoOferta.setText("");
+        txt_numPaginas.setText("");
+        txt_margemLucro.setText("");
+        cmb_formato.setSelectedItem("Selecione..");
+        oferta = false;
+        digital = false;
+        rdo_digitalNao.setSelected(false);
+        rdo_ofertaNao.setSelected(false);
+        
+        txt_isbn.setEnabled(true);
+        bloqueiaBotao();
+    }
+
+    public void liberaBotao() {
+        btn_alterar.setEnabled(true);
+        btn_excluir.setEnabled(true);
+    }
+
+    public void bloqueiaBotao() {
+        btn_alterar.setEnabled(false);
+        btn_excluir.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField ISBN_livro;
-    private javax.swing.JTextField ano_txt;
-    private javax.swing.JButton button_alterar;
-    private javax.swing.JButton button_cadastro;
-    private javax.swing.JButton button_excluir;
-    private javax.swing.JButton button_pesquisar;
-    private javax.swing.JComboBox<String> categoria_livro;
-    private javax.swing.JTextField editora_txt;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btn_alterar;
+    private javax.swing.JButton btn_cadastrar;
+    private javax.swing.JButton btn_excluir;
+    private javax.swing.JButton btn_pesquisar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cmb_ano;
+    private javax.swing.JComboBox cmb_autor;
+    private javax.swing.JComboBox<String> cmb_categoria;
+    private javax.swing.JComboBox cmb_editora;
+    private javax.swing.JComboBox<String> cmb_formato;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -373,31 +715,30 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JComboBox<String> livro_digital_select;
-    private javax.swing.JTextField margem_lucro;
-    private javax.swing.JTextField nome_autor_txt;
-    private javax.swing.JComboBox<String> oferta_livro_select;
-    private javax.swing.JComboBox<String> pais_livro;
-    private javax.swing.JTextField preco_livro;
-    private javax.swing.JTextField preco_oferta;
-    private javax.swing.JTextField preco_revenda;
-    private javax.swing.JTextField qtd_txt;
-    private javax.swing.JTextArea resumo_txt;
-    private javax.swing.JTextArea sumario_txt;
-    private javax.swing.JTextField titulo_txt;
+    private javax.swing.JRadioButton rdo_digitalNao;
+    private javax.swing.JRadioButton rdo_digitalSim;
+    private javax.swing.JRadioButton rdo_ofertSim;
+    private javax.swing.JRadioButton rdo_ofertaNao;
+    private javax.swing.JTextField txt_isbn;
+    private javax.swing.JTextField txt_margemLucro;
+    private javax.swing.JTextField txt_numPaginas;
+    private javax.swing.JTextField txt_precoCusto;
+    private javax.swing.JTextField txt_precoOferta;
+    private javax.swing.JTextField txt_precoVenda;
+    private javax.swing.JFormattedTextField txt_qtd;
+    private javax.swing.JTextArea txt_resumo;
+    private javax.swing.JTextArea txt_sumario;
+    private javax.swing.JTextField txt_titulo;
     // End of variables declaration//GEN-END:variables
 }

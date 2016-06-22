@@ -138,4 +138,9 @@ public class Editora {
             telefone = "";
         return Pattern.matches("(\\(\\d{2}\\))(\\d{4,5})-(\\d{4})", telefone);
     }
+
+    @Override
+    public String toString() {
+        return ID + " - " + nome;
+    }
 }

@@ -24,21 +24,12 @@ public class CarrinhoCompras extends javax.swing.JFrame {
     private final ControleCarrinho conCar = new ControleCarrinho();
     private ItemPedido escolhido = null;
     
-    private static CarrinhoCompras janela = null;
-    
-    private CarrinhoCompras() {
+    public CarrinhoCompras() {
         initComponents();
         this.setTitle("Livraria Newstime");
-        janela.preencherTabela();
+        preencherTabela();
     }
     
-    public static CarrinhoCompras getInstance() {
-        if(janela == null)
-            janela = new CarrinhoCompras();
-        janela.preencherTabela();
-        return janela;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

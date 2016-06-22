@@ -121,7 +121,7 @@ public class Home extends javax.swing.JFrame {
         jScrollPane1.setViewportView(painelPai);
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newstime/fronteira/icon2.png"))); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newstime/fronteira/logo.png"))); // NOI18N
         jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -515,7 +515,7 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnPesquisar)))
-                        .addGap(0, 344, Short.MAX_VALUE)))
+                        .addGap(0, 380, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -781,20 +781,20 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_itemDigitalActionPerformed
 
     private void itemAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAcessoActionPerformed
-        acesso = AcessoAdm.getInstance(this);
+        acesso = new AcessoAdm();
         acesso.setVisible(true);
     }//GEN-LAST:event_itemAcessoActionPerformed
 
     private void itemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairActionPerformed
         ContaRestrita.deslogar();
         //DESABILITA ADMIN
-        this.itemAcesso.setVisible(true);
+        Home.itemAcesso.setEnabled(true);
         
-        this.itemSair.setEnabled(false);
-        this.itemLivro.setEnabled(false);
-        this.itemEditora.setEnabled(false);
-        this.itemAutor.setEnabled(false);
-        this.itemVenda.setEnabled(false);
+        Home.itemSair.setEnabled(false);
+        Home.itemLivro.setEnabled(false);
+        Home.itemEditora.setEnabled(false);
+        Home.itemAutor.setEnabled(false);
+        Home.itemVenda.setEnabled(false);
     }//GEN-LAST:event_itemSairActionPerformed
 
     private void menuLojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLojasActionPerformed
@@ -803,15 +803,18 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLojasActionPerformed
 
     private void itemLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLivroActionPerformed
-        // TODO add your handling code here:
+        CadastroLivro cl = new CadastroLivro();
+        cl.setVisible(true);
     }//GEN-LAST:event_itemLivroActionPerformed
 
     private void itemEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditoraActionPerformed
-        // TODO add your handling code here:
+        CadastroEditora ca = new CadastroEditora();
+        ca.setVisible(true);
     }//GEN-LAST:event_itemEditoraActionPerformed
 
     private void itemAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAutorActionPerformed
-        // TODO add your handling code here:
+        CadastroAutor ca = new CadastroAutor();
+        ca.setVisible(true);
     }//GEN-LAST:event_itemAutorActionPerformed
 
     private void itemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVendaActionPerformed
@@ -820,7 +823,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_itemVendaActionPerformed
 
     private void itemCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCarrinhoActionPerformed
-        carrinho = CarrinhoCompras.getInstance();
+        carrinho = new CarrinhoCompras();
         carrinho.setVisible(true);
     }//GEN-LAST:event_itemCarrinhoActionPerformed
 
@@ -832,13 +835,13 @@ public class Home extends javax.swing.JFrame {
     private void itemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogoutActionPerformed
         Conta.deslogar();
         //DESABILITA CLIENTE
-        this.itemCadastro.setEnabled(true);
-        this.itemLogin.setEnabled(true);
+        Home.itemCadastro.setEnabled(true);
+        Home.itemLogin.setEnabled(true);
 
-        this.itemLogout.setEnabled(false);
-        this.itemLivro.setEnabled(false);
-        this.itemCarrinho.setEnabled(false);
-        this.itemPedidos.setEnabled(false);
+        Home.itemLogout.setEnabled(false);
+        Home.itemLivro.setEnabled(false);
+        Home.itemCarrinho.setEnabled(false);
+        Home.itemPedidos.setEnabled(false);
     }//GEN-LAST:event_itemLogoutActionPerformed
 
     private void itemCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroActionPerformed
@@ -942,60 +945,60 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnPesquisar;
+    public static javax.swing.JButton btnPesquisar;
     public javax.swing.JComboBox<String> cmbFiltro;
-    public javax.swing.JMenuItem itemAcesso;
-    public javax.swing.JMenuItem itemAutor;
-    public javax.swing.JMenuItem itemCadastro;
-    public javax.swing.JMenuItem itemCarrinho;
-    public javax.swing.JMenuItem itemCat1;
-    public javax.swing.JMenuItem itemCat10;
-    public javax.swing.JMenuItem itemCat11;
-    public javax.swing.JMenuItem itemCat12;
-    public javax.swing.JMenuItem itemCat13;
-    public javax.swing.JMenuItem itemCat14;
-    public javax.swing.JMenuItem itemCat15;
-    public javax.swing.JMenuItem itemCat16;
-    public javax.swing.JMenuItem itemCat17;
-    public javax.swing.JMenuItem itemCat18;
-    public javax.swing.JMenuItem itemCat19;
-    public javax.swing.JMenuItem itemCat2;
-    public javax.swing.JMenuItem itemCat20;
-    public javax.swing.JMenuItem itemCat21;
-    public javax.swing.JMenuItem itemCat22;
-    public javax.swing.JMenuItem itemCat23;
-    public javax.swing.JMenuItem itemCat24;
-    public javax.swing.JMenuItem itemCat25;
-    public javax.swing.JMenuItem itemCat26;
-    public javax.swing.JMenuItem itemCat3;
-    public javax.swing.JMenuItem itemCat4;
-    public javax.swing.JMenuItem itemCat5;
-    public javax.swing.JMenuItem itemCat6;
-    public javax.swing.JMenuItem itemCat7;
-    public javax.swing.JMenuItem itemCat8;
-    public javax.swing.JMenuItem itemCat9;
-    public javax.swing.JMenuItem itemDigital;
-    public javax.swing.JMenuItem itemEditora;
-    public javax.swing.JMenuItem itemLivro;
-    public javax.swing.JMenuItem itemLogin;
-    public javax.swing.JMenuItem itemLogout;
-    public javax.swing.JMenuItem itemMaisVendidos;
-    public javax.swing.JMenuItem itemPedidos;
-    public javax.swing.JMenuItem itemPromocao;
-    public javax.swing.JMenuItem itemSair;
-    public javax.swing.JMenuItem itemVenda;
-    public javax.swing.JLabel jLabel21;
-    public javax.swing.JLabel jLabel25;
-    public javax.swing.JMenuBar jMenuBar1;
-    public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JPopupMenu.Separator jSeparator1;
-    public javax.swing.JPopupMenu.Separator jSeparator2;
-    public javax.swing.JMenu menuAdmin;
-    public javax.swing.JMenu menuCategoria;
-    public javax.swing.JMenu menuConta;
-    public javax.swing.JMenu menuLojas;
-    public javax.swing.JMenu menuPesquisar;
-    public javax.swing.JPanel painelPai;
-    public javax.swing.JTextField txtPesquisa;
+    public static javax.swing.JMenuItem itemAcesso;
+    public static javax.swing.JMenuItem itemAutor;
+    public static javax.swing.JMenuItem itemCadastro;
+    public static javax.swing.JMenuItem itemCarrinho;
+    public static javax.swing.JMenuItem itemCat1;
+    public static javax.swing.JMenuItem itemCat10;
+    public static javax.swing.JMenuItem itemCat11;
+    public static javax.swing.JMenuItem itemCat12;
+    public static javax.swing.JMenuItem itemCat13;
+    public static javax.swing.JMenuItem itemCat14;
+    public static javax.swing.JMenuItem itemCat15;
+    public static javax.swing.JMenuItem itemCat16;
+    public static javax.swing.JMenuItem itemCat17;
+    public static javax.swing.JMenuItem itemCat18;
+    public static javax.swing.JMenuItem itemCat19;
+    public static javax.swing.JMenuItem itemCat2;
+    public static javax.swing.JMenuItem itemCat20;
+    public static javax.swing.JMenuItem itemCat21;
+    public static javax.swing.JMenuItem itemCat22;
+    public static javax.swing.JMenuItem itemCat23;
+    public static javax.swing.JMenuItem itemCat24;
+    public static javax.swing.JMenuItem itemCat25;
+    public static javax.swing.JMenuItem itemCat26;
+    public static javax.swing.JMenuItem itemCat3;
+    public static javax.swing.JMenuItem itemCat4;
+    public static javax.swing.JMenuItem itemCat5;
+    public static javax.swing.JMenuItem itemCat6;
+    public static javax.swing.JMenuItem itemCat7;
+    public static javax.swing.JMenuItem itemCat8;
+    public static javax.swing.JMenuItem itemCat9;
+    public static javax.swing.JMenuItem itemDigital;
+    public static javax.swing.JMenuItem itemEditora;
+    public static javax.swing.JMenuItem itemLivro;
+    public static javax.swing.JMenuItem itemLogin;
+    public static javax.swing.JMenuItem itemLogout;
+    public static javax.swing.JMenuItem itemMaisVendidos;
+    public static javax.swing.JMenuItem itemPedidos;
+    public static javax.swing.JMenuItem itemPromocao;
+    public static javax.swing.JMenuItem itemSair;
+    public static javax.swing.JMenuItem itemVenda;
+    public static javax.swing.JLabel jLabel21;
+    public static javax.swing.JLabel jLabel25;
+    public static javax.swing.JMenuBar jMenuBar1;
+    public static javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JPopupMenu.Separator jSeparator1;
+    public static javax.swing.JPopupMenu.Separator jSeparator2;
+    public static javax.swing.JMenu menuAdmin;
+    public static javax.swing.JMenu menuCategoria;
+    public static javax.swing.JMenu menuConta;
+    public static javax.swing.JMenu menuLojas;
+    public static javax.swing.JMenu menuPesquisar;
+    public static javax.swing.JPanel painelPai;
+    public static javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

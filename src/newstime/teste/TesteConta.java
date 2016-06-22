@@ -32,8 +32,8 @@ public class TesteConta {
         //Define cliente
         Cliente c = new Cliente();
         try {
-            c.setEmail("compadre.bastos@email.com");
-            c.setSenha("well123456");
+            c.setEmail("josdsoa2@gmail.com");
+            c.setSenha("123456789");
         } catch (FormatacaoIncorretaException ex) {
             Logger.getLogger(TesteConta.class.getName()).log(Level.SEVERE, null, ex);
             return;

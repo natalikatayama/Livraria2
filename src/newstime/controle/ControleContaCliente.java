@@ -97,6 +97,7 @@ public class ControleContaCliente {
             cliente.setEndereco(enderecoC);
             //Cadastro do cliente
             Conta.cadastrar(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         } catch (FormatacaoIncorretaException | ParseException | NegocioException | BancoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -107,11 +108,12 @@ public class ControleContaCliente {
      * @param senha Senha de acesso de cliente
      */
     public void logar(String email, String senha){
-           try {
+        try {
             Cliente c = new Cliente();
             c.setEmail(email);
             c.setSenha(senha);
             Conta.logar(c);
+            System.out.println(Conta.getCliente().getNome());
         } catch (BancoException | NegocioException | FormatacaoIncorretaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

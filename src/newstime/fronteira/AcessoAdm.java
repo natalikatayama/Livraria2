@@ -6,21 +6,12 @@ import newstime.entidade.ContaRestrita;
 
 public class AcessoAdm extends javax.swing.JFrame {
     
-    private static AcessoAdm janela = null;
-    private static Home h = null;
-    private ControleAdministracao conAdmin;
+    private ControleAdministracao conAdmin = new ControleAdministracao();
     
-    private AcessoAdm(Home h) {
+    public AcessoAdm() {
         initComponents();
-        AcessoAdm.h = h;
     }
     
-    public static AcessoAdm getInstance(Home h) {
-        if(janela == null)
-            janela = new AcessoAdm(h);
-        return janela;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,13 +91,13 @@ public class AcessoAdm extends javax.swing.JFrame {
             limparCampos();
             
             //HABILITA ADMIN
-            AcessoAdm.h.itemAcesso.setEnabled(false);
+            Home.itemAcesso.setEnabled(false);
             
-            AcessoAdm.h.itemSair.setEnabled(true);
-            AcessoAdm.h.itemLivro.setEnabled(true);
-            AcessoAdm.h.itemEditora.setEnabled(true);
-            AcessoAdm.h.itemAutor.setEnabled(true);
-            AcessoAdm.h.itemVenda.setEnabled(true);
+            Home.itemSair.setEnabled(true);
+            Home.itemLivro.setEnabled(true);
+            Home.itemEditora.setEnabled(true);
+            Home.itemAutor.setEnabled(true);
+            Home.itemVenda.setEnabled(true);
             
             this.setVisible(false);
         }
